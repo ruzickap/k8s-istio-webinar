@@ -21,8 +21,8 @@ jobs:
           prefix         = "test-k8s-istio-webinar"
           EOF
         # Run terraform checks
-        - terraform init     -var-file=terraform.tfvars terrafrom/openstack
-        - terraform validate -var-file=terraform.tfvars terrafrom/openstack
+        - terraform init     -var-file=terraform.tfvars terrafrom/aws
+        - terraform validate -var-file=terraform.tfvars terrafrom/aws
 
     - stage: Tests
       name: "Markdown check"

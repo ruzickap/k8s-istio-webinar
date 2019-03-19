@@ -1,0 +1,70 @@
+# Istio webinar
+
+[Istio](https://istio.io/) is an open platform to connect, secure, control
+and observe microservices, also known as a service mesh, on cloud platforms
+such as Kubernetes.
+
+![Istio](./.vuepress/public/istio.svg "Istio")
+
+With Istio, you can manage network traffic, load balance across microservices,
+enforce access policies, verify service identity, secure service communication,
+and observe what exactly is going on with your services.
+
+* GitHub repository: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
+
+## Requirements
+
+* [awscli](https://aws.amazon.com/cli/)
+* [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator)
+* [AWS account](https://aws.amazon.com/account/)
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* [terraform](https://www.terraform.io/)
+* Kubernetes and linux knowledge required
+
+## Objectives
+
+After you complete this course, you'll be able to:
+
+* Download and install Istio in your cluster
+* Deploy the Guestbook sample app
+* Use metrics, logging, and tracing to observe services
+* Set up the Istio Ingress Gateway
+* Perform simple traffic management, such as A/B tests and canary deployments
+* Secure your service mesh
+* Enforce policies for your microservices
+
+## Webinar
+
+You will perform the following exercises in the lab:
+
+* [Lab 01 - Create EKS](part-01/README.md)
+
+::: tip
+In case you turned off / restart your computer please verify you
+have the `KUBECONFIG` variable set properly:
+:::
+
+```bash
+export KUBECONFIG=${KUBECONFIG:-$PWD/kubeconfig.conf}
+kubectl get nodes -o wide
+```
+
+## Links
+
+* Video:
+
+  * [Istio Service Mesh by Mete Atamel @ .NET Conf UY v2018](https://www.youtube.com/watch?v=sh0F7FMFVSI)
+
+  * [Liam White - Istio @ GDGReading DevFest 2018](https://www.youtube.com/watch?v=RVScqW8_liw)
+
+  * [Istio Service Mesh & pragmatic microservices architecture - Álex Soto](https://www.youtube.com/watch?v=OAW5rbttic0)
+
+* Pages:
+
+  * [Introduction - Istio 101 Lab](https://istio101.gitbook.io/lab/workshop/)
+
+  * [Using Istio Workshop by Layer5.io](https://github.com/leecalcote/istio-service-mesh-workshop)
+
+  * [Istio Workshop by Ray Tsang](https://github.com/retroryan/istio-workshop)
+
+  * [Amazon EKS Workshop - Service Mesh with Istio](https://eksworkshop.com/servicemesh/)

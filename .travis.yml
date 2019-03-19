@@ -1,0 +1,87 @@
+---
+dist: xenial
+
+jobs:
+  include:
+    - stage: Tests
+      name: "Terraform checks"
+      language: minimal
+      install:
+        # Install Terraform
+        - export TERRAFORM_LATEST_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
+        - curl --silent --location https://releases.hashicorp.com/terraform/${TERRAFORM_LATEST_VERSION}/terraform_${TERRAFORM_LATEST_VERSION}_linux_amd64.zip --output /tmp/terraform_linux_amd64.zip
+        - sudo unzip -q -o /tmp/terraform_linux_amd64.zip -d /usr/local/bin/
+      script:
+        # Generate ssh key if needed
+        - install -m 0700 -d $HOME/.ssh
+        - ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -q -N ""
+        # Fill terraform variables with test data
+        - |
+          cat > terraform.tfvars << EOF
+          prefix         = "test-k8s-istio-webinar"
+          EOF
+        # Run terraform checks
+        - terraform init     -var-file=terraform.tfvars terrafrom/openstack
+        - terraform validate -var-file=terraform.tfvars terrafrom/openstack
+
+    - stage: Tests
+      name: "Markdown check"
+      language: node_js
+      node_js: 10
+      install:
+        # Install markdownlint and markdown-link-check
+        - npm install -g markdownlint-cli markdown-link-check > /dev/null
+      script:
+        # Markdown check
+        - 'echo "{ MD013: { code_blocks: false } }" > /tmp/markdownlint_config.json'
+        - find . -name "*.md" -print0 | xargs -0 markdownlint -c /tmp/markdownlint_config.json
+        # Link Checks
+        - 'echo "{ \"ignorePatterns\": [ { \"pattern\": \"^(http|https)://localhost\" } ] }" > /tmp/config.json'
+        - find . -name "*.md" -print0 | xargs -0 markdown-link-check --config /tmp/config.json --quiet
+
+    - stage: Tests
+      name: "Web links check"
+      language: node_js
+      services:
+        - docker
+      node_js: 10
+      install:
+        - npm install -g vuepress@next
+        - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
+      script:
+        # Get local IP
+        - export HOST_IP_ADDRESS="$(ip -4 addr show docker0 | sed -n 's/.* inet \([^/]*\).*/\1/p')"
+        # Build the docs
+        - vuepress build --silent --dest ${TRAVIS_REPO_SLUG##*/} docs
+        # Start Web server
+        - python3 -m http.server 8080 &> /dev/null &
+        # Check links on generated pages
+        - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" http://${HOST_IP_ADDRESS}:8080/${TRAVIS_REPO_SLUG##*/}
+
+    - stage: Build & Deploy
+      name: "Build and Deploy to GitHub pages"
+      language: node_js
+      node_js: 10
+      install:
+        - npm install -g vuepress@next
+        - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
+      script:
+        - vuepress build docs
+      after_success:
+        - mv --verbose LICENSE docs/.vuepress/dist
+        - sed 's@docs/@https://raw.githubusercontent.com/ruzickap/k8s-istio-webinar/master/docs/@' README.md > docs/.vuepress/dist/README.md
+
+      deploy:
+        provider: pages
+        local-dir: docs/.vuepress/dist
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        target-branch: gh-pages
+
+    - stage: Web Links Check
+      name: "Final web links check with deployed web pages"
+      language: minimal
+      services:
+        - docker
+      script:
+        - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" https://${TRAVIS_REPO_SLUG%/*}.github.io/${TRAVIS_REPO_SLUG##*/}

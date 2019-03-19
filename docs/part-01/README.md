@@ -103,9 +103,9 @@ kubectl get nodes -o wide
 Output:
 
 ```shell
-NAME                                          STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP     OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
-ip-10-0-0-178.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   10.0.0.178    18.197.69.122   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
-ip-10-0-1-5.eu-central-1.compute.internal     Ready    <none>   3m    v1.11.5   10.0.1.5      35.158.171.53   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
+NAME                                          STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP      OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
+ip-10-0-0-151.eu-central-1.compute.internal   Ready    <none>   4m    v1.11.5   10.0.0.151    54.93.241.240    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
+ip-10-0-1-151.eu-central-1.compute.internal   Ready    <none>   4m    v1.11.5   10.0.1.151    18.185.102.230   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
 ```
 
 Both worker nodes shoule be accessible via ssh:
@@ -113,17 +113,17 @@ Both worker nodes shoule be accessible via ssh:
 ```bash
 for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'); do
   echo "*** ${EXTERNAL_IP}"
-  ssh -o StrictHostKeyChecking=no -l ec2-user ${EXTERNAL_IP} uptime
+  ssh -q -o StrictHostKeyChecking=no -l ec2-user ${EXTERNAL_IP} uptime
 done
 ```
 
 Output:
 
 ```shell
-*** 18.197.69.122
- 07:08:52 up 10 min,  0 users,  load average: 0.00, 0.04, 0.05
-*** 35.158.171.53
- 07:08:52 up 10 min,  0 users,  load average: 0.00, 0.04, 0.03
+*** 54.93.241.240
+ 08:21:57 up 5 min,  0 users,  load average: 0.03, 0.11, 0.07
+*** 18.185.102.230
+ 08:21:57 up 5 min,  0 users,  load average: 0.04, 0.12, 0.07
 ```
 
 At the end of the output you should see 2 IP addresses which

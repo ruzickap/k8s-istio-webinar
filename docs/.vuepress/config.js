@@ -26,6 +26,7 @@ module.exports = {
     sidebar: [
       '/',
       '/part-01/',
+      '/part-02/',
     ]
   },
   plugins: [

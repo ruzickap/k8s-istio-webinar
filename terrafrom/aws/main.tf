@@ -81,7 +81,8 @@ resource "aws_route_table_association" "route_table_association" {
 # EKS Master Cluster IAM Role
 
 resource "aws_iam_role" "iam_role-cluster" {
-  description = "IAM role and policy to allow the EKS service to manage or retrieve data from other AWS services"
+  name               = "${var.prefix}-iam_role-cluster"
+  description        = "IAM role and policy to allow the EKS service to manage or retrieve data from other AWS services"
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -201,7 +202,7 @@ KUBECONFIG
 
 resource "local_file" "kubeconfig" {
   content  = "${local.kubeconfig}"
-  filename = "kubeconfig_${var.prefix}-eks_cluster.conf"
+  filename = "kubeconfig.conf"
 }
 
 #########################
@@ -216,7 +217,8 @@ resource "aws_key_pair" "key_pair" {
 # Worker Node IAM Role and Instance Profile
 
 resource "aws_iam_role" "iam_role-node" {
-  description = "IAM role and policy to allow the worker nodes to manage or retrieve data from other AWS services"
+  name               = "${var.prefix}-iam_role-node"
+  description        = "IAM role and policy to allow the worker nodes to manage or retrieve data from other AWS services"
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -386,7 +388,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   tags = [
     {
       key                 = "Name"
-      value               = "${var.prefix}-autoscaling_group"
+      value               = "${var.prefix}"
       propagate_at_launch = true
     },
     {
@@ -394,9 +396,8 @@ resource "aws_autoscaling_group" "autoscaling_group" {
       value               = "owned"
       propagate_at_launch = true
     },
+    "${data.null_data_source.autoscaling_group-tags.*.outputs}"
   ]
-
-  tags = ["${data.null_data_source.autoscaling_group-tags.*.outputs}"]
 }
 
 # Required Kubernetes Configuration to Join Worker Nodes
@@ -431,8 +432,7 @@ resource "null_resource" "update_config_map_aws_auth" {
 
   provisioner "local-exec" {
     command = <<EOF
-kubectl apply -f /tmp/config-map-aws-auth_${var.prefix}-eks_cluster.yaml --kubeconfig kubeconfig_${var.prefix}-eks_cluster.conf
-ln -s kubeconfig_${var.prefix}-eks_cluster.conf kubeconfig.conf
+kubectl apply -f /tmp/config-map-aws-auth_${var.prefix}-eks_cluster.yaml --kubeconfig kubeconfig.conf
 EOF
   }
 }

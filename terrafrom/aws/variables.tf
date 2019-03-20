@@ -20,7 +20,7 @@ variable "aws_autoscaling_group_worker_nodes_max" {
 
 variable "aws_autoscaling_group_worker_nodes_min" {
   description = "Min number of VMs which should be kept as k8s worker nodes in autoscaling group"
-  default     = 1
+  default     = 2
 }
 
 variable "aws_vpc_cidr_block" {

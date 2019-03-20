@@ -30,10 +30,10 @@ sed -n '/^```bash$/,/^```$/p' docs/part-{02..03}/README.md | sed '/^```*/d' > RE
 source ./README.sh
 
 # Istio cleanup
-helm del --purge istio
-kubectl -n istio-system delete job --all
-kubectl delete -f install/kubernetes/helm/istio/templates/crds.yaml -n istio-system
+helm delete --purge istio
+helm delete --purge istio-init
 kubectl delete namespace istio-system
+kubectl delete -f install/kubernetes/helm/istio-init/files
 kubectl label namespace default istio-injection-
 
 cd ../..

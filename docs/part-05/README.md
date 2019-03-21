@@ -141,8 +141,8 @@ the browser. The **black star ratings** appear next to each review.
 ![Bookinfo v2](./bookinfo_v2.jpg "Bookinfo v2")
 
 Log in as another user (pick any name you wish) and refresh the browser. Now
-the **stars are gone**. This is because traffic is routed to reviews:v1 for all
-users except Jason.
+the **stars are gone**. This is because traffic is routed to `reviews:v1`
+for all users except `jason` user.
 
 You can do the same with `user-agent header` or `URI` for example:
 

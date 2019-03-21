@@ -33,7 +33,7 @@ and observe what exactly is going on with your services.
 
 ## Webinar
 
-* [Part 01 - Create EKS](part-01/README.md)
+* [Part 01 - Create EKS cluster](part-01/README.md)
 * [Part 02 - Install Helm](part-02/README.md)
 * [Part 03 - Istio - Installation](part-03/README.md)
 * [Part 04 - Istio - Bookinfo Application](part-04/README.md)

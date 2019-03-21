@@ -1,6 +1,6 @@
 # Istio - Installation
 
-Istio architectue
+Istio architecture:
 
 ![Istio Architecture](https://raw.githubusercontent.com/istio/istio.io/7bf371365e4a16a9a13c0e79355fe1eac7f8f99f/content/docs/concepts/what-is-istio/arch.svg?sanitize=true
 "Istio Architecture")
@@ -27,7 +27,7 @@ Install `istioctl`:
 test -x /usr/local/bin/istioctl || sudo mv bin/istioctl /usr/local/bin/
 ```
 
-Install the `istio-init` chart to bootstrap all the Istio's CRDs
+Install the `istio-init` chart to bootstrap all the Istio's CRDs:
 
 ```bash
 helm install install/kubernetes/helm/istio-init --wait --name istio-init --namespace istio-system
@@ -163,7 +163,7 @@ destinationrule.networking.istio.io/istio-telemetry   istio-telemetry.istio-syst
 
 Configure the Istio services ([Jaeger](https://www.jaegertracing.io/),
 [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/),
-[Kiali](http://kiali.mylabs.dev), Servicegraph) to be visible "outside":
+[Kiali](http://kiali.mylabs.dev), Servicegraph) to be visible externally:
 
 ```bash
 kubectl create -f ../../files/export_services_gateway.yaml

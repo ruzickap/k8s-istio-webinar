@@ -72,7 +72,7 @@ pod/reviews-v3-85b7f44cdd-2gqmj       2/2     Running   0          2m    10.0.0.
 ```
 
 Check the container details - you should see also container `istio-proxy` next
-to `productpage`.
+to `productpage` container.
 
 ```bash
 kubectl describe pod -l app=productpage
@@ -198,8 +198,7 @@ NAME                                          GATEWAYS             HOSTS   AGE
 virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     25s
 ```
 
-Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage)
-(take the full URL from the output of the commands above).
+Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
 
 Confirm the app is running:
 

@@ -1,7 +1,7 @@
 # Create EKS cluster
 
 Before you start with the main content of the webinar, you need to provision
-the EKS in AWS.
+the [Amazon EKS](https://aws.amazon.com/eks/) in AWS.
 
 ## Prepare the local working environment
 
@@ -38,7 +38,7 @@ if [ ! -x /usr/local/bin/terraform ]; then
 fi
 ```
 
-Install [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator)
+Install [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator):
 
 ```bash
 if [ ! -x /usr/local/bin/aws-iam-authenticator ]; then
@@ -47,7 +47,7 @@ if [ ! -x /usr/local/bin/aws-iam-authenticator ]; then
 fi
 ```
 
-## Create EKS
+## Create Amazon EKS
 
 ![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/master/static/images/3-service-animated.gif
 "EKS")
@@ -87,7 +87,7 @@ Download Terraform components:
 terraform init terrafrom/aws
 ```
 
-Create EKS in AWS:
+Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS:
 
 ```bash
 terraform apply -auto-approve -var-file=terrafrom/aws/terraform.tfvars terrafrom/aws

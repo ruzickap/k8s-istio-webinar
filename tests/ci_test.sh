@@ -26,7 +26,7 @@ kubeadm-dind-cluster_install
 kubectl cluster-info
 
 # Commands
-sed -n '/^```bash$/,/^```$/p' docs/part-{02..04}/README.md | sed '/^```*/d' > README.sh
+sed -n '/^```bash$/,/^```$/p' docs/part-{02..06}/README.md | sed '/^```*/d' > README.sh
 source ./README.sh
 
 # Istio + app cleanup

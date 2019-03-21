@@ -1,0 +1,185 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: my-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http2
+      protocol: HTTP2
+    hosts:
+    - "*"
+
+---
+##################
+# Grafana
+##################
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: grafana-destination-rule
+  namespace: istio-system
+spec:
+  host: grafana.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - "grafana.mylabs.dev"
+  gateways:
+  - my-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana.istio-system.svc.cluster.local
+        port:
+          number: 3000
+
+---
+##################
+# Jaeger
+##################
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: jaeger-destination-rule
+  namespace: istio-system
+spec:
+  host: jaeger.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jaeger-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - "jaeger.mylabs.dev"
+  gateways:
+  - my-gateway
+  http:
+  - route:
+    - destination:
+        host: jaeger-query.istio-system.svc.cluster.local
+        port:
+          number: 16686
+
+---
+##################
+# Kiali
+##################
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kiali-destination-rule
+  namespace: istio-system
+spec:
+  host: kiali.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - "kiali.mylabs.dev"
+  gateways:
+  - my-gateway
+  http:
+  - route:
+    - destination:
+        host: kiali.istio-system.svc.cluster.local
+        port:
+          number: 20001
+
+---
+##################
+# Prometheus
+##################
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: prometheus-destination-rule
+  namespace: istio-system
+spec:
+  host: prometheus.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - "prometheus.mylabs.dev"
+  gateways:
+  - my-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus.istio-system.svc.cluster.local
+        port:
+          number: 9090
+
+---
+##################
+# Servicegraph
+##################
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: servicegraph-destination-rule
+  namespace: istio-system
+spec:
+  host: servicegraph.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: servicegraph-virtual-service
+  namespace: istio-system
+spec:
+  hosts:
+  - "servicegraph.mylabs.dev"
+  gateways:
+  - my-gateway
+  http:
+  - route:
+    - destination:
+        host: servicegraph.istio-system.svc.cluster.local
+        port:
+          number: 8088

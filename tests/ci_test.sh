@@ -5,7 +5,7 @@ kubeadm-dind-cluster_install() {
   chmod +x dind-cluster.sh
 
   # start the cluster
-  ./dind-cluster.sh up
+  NUM_NODES=3 SKIP_DASHBOARD="true" SKIP_SNAPSHOT="true" ./dind-cluster.sh up
 
   # add kubectl directory to PATH
   export PATH="$HOME/.kubeadm-dind-cluster:$PATH"
@@ -29,12 +29,12 @@ kubectl cluster-info
 sed -n '/^```bash$/,/^```$/p' docs/part-{02..03}/README.md | sed '/^```*/d' > README.sh
 source ./README.sh
 
-# Istio cleanup
+# Istio + app cleanup
+NAMESPACE=default samples/bookinfo/platform/kube/cleanup.sh
 helm delete --purge istio
 helm delete --purge istio-init
-kubectl delete namespace istio-system
 kubectl delete -f install/kubernetes/helm/istio-init/files
-kubectl label namespace default istio-injection-
+kubectl delete namespace istio-system
 
 cd ../..
 rm -rf tmp

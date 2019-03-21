@@ -4,27 +4,6 @@ dist: xenial
 jobs:
   include:
     - stage: Tests
-      name: "Terraform checks"
-      language: minimal
-      install:
-        # Install Terraform
-        - export TERRAFORM_LATEST_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M '.current_version')
-        - curl --silent --location https://releases.hashicorp.com/terraform/${TERRAFORM_LATEST_VERSION}/terraform_${TERRAFORM_LATEST_VERSION}_linux_amd64.zip --output /tmp/terraform_linux_amd64.zip
-        - sudo unzip -q -o /tmp/terraform_linux_amd64.zip -d /usr/local/bin/
-      script:
-        # Generate ssh key if needed
-        - install -m 0700 -d $HOME/.ssh
-        - ssh-keygen -t rsa -f $HOME/.ssh/id_rsa -q -N ""
-        # Fill terraform variables with test data
-        - |
-          cat > terraform.tfvars << EOF
-          prefix         = "test-k8s-istio-webinar"
-          EOF
-        # Run terraform checks
-        - terraform init     -var-file=terraform.tfvars terrafrom/aws
-        - terraform validate -var-file=terraform.tfvars terrafrom/aws
-
-    - stage: Tests
       name: "Markdown check"
       language: node_js
       node_js: 10

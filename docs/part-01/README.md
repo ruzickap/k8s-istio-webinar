@@ -28,13 +28,12 @@ if [ ! -x /usr/local/bin/kubectl ]; then
 fi
 ```
 
-Install [Terraform](https://www.terraform.io/):
+Install [eksctl](https://eksctl.io/):
 
 ```bash
-if [ ! -x /usr/local/bin/terraform ]; then
-  TERRAFORM_LATEST_VERSION=$(curl -s https://checkpoint-api.hashicorp.com/v1/check/terraform | jq -r -M ".current_version")
-  curl --silent --location https://releases.hashicorp.com/terraform/${TERRAFORM_LATEST_VERSION}/terraform_${TERRAFORM_LATEST_VERSION}_linux_amd64.zip --output /tmp/terraform_linux_amd64.zip
-  unzip -o /tmp/terraform_linux_amd64.zip -d /usr/local/bin/
+if [ ! -x /usr/local/bin/eksctl ]; then
+  curl --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+  sudo mv /tmp/eksctl /usr/local/bin
 fi
 ```
 
@@ -72,28 +71,22 @@ git clone https://github.com/ruzickap/k8s-istio-webinar
 cd k8s-istio-webinar
 ```
 
-Configure variables for Terraform:
-
-```bash
-cat > terrafrom/aws/terraform.tfvars << EOF
-# Common
-prefix         = "${USER}-k8s-istio-webinar"
-EOF
-```
-
-Download Terraform components:
-
-```bash
-terraform init terrafrom/aws
-```
-
 Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS:
 
 ```bash
-terraform apply -auto-approve -var-file=terrafrom/aws/terraform.tfvars terrafrom/aws
+eksctl create cluster \
+--name=${USER}-k8s-istio-webinar \
+--tags "Application=Istio Webinar,Owner=${USER},Environment=Webinar,Division=Services" \
+--region=eu-central-1 \
+--node-type=t3.medium \
+--ssh-access \
+--node-ami=auto \
+--node-labels "Application=Istio_Webinar,Owner=${USER},Environment=Webinar,Division=Services" \
+--kubeconfig=./kubeconfig.conf \
+--verbose 4
 ```
 
-Check if the new EKS cluster is avaiable:
+Check if the new EKS cluster is available:
 
 ```bash
 export KUBECONFIG=$PWD/kubeconfig.conf
@@ -104,8 +97,9 @@ Output:
 
 ```shell
 NAME                                          STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP      OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
-ip-10-0-0-151.eu-central-1.compute.internal   Ready    <none>   4m    v1.11.5   10.0.0.151    54.93.241.240    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
-ip-10-0-1-151.eu-central-1.compute.internal   Ready    <none>   4m    v1.11.5   10.0.1.151    18.185.102.230   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
+NAME                                              STATUS   ROLES    AGE   VERSION   INTERNAL-IP      EXTERNAL-IP      OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
+ip-192-168-11-227.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.11.227   18.194.185.132   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
+ip-192-168-42-115.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.42.115   18.195.182.75    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
 ```
 
 Both worker nodes shoule be accessible via ssh:
@@ -120,11 +114,11 @@ done
 Output:
 
 ```shell
-*** 54.93.241.240
- 08:21:57 up 5 min,  0 users,  load average: 0.03, 0.11, 0.07
-*** 18.185.102.230
- 08:21:57 up 5 min,  0 users,  load average: 0.04, 0.12, 0.07
-```
+*** 18.194.185.132
+ 16:35:21 up 3 min,  0 users,  load average: 0.39, 0.37, 0.19
+*** 18.195.182.75
+ 16:35:22 up 3 min,  0 users,  load average: 0.16, 0.32, 0.17
+ ```
 
 At the end of the output you should see 2 IP addresses which
 should be accessible by ssh using your public key `~/.ssh/id_rsa.pub`.

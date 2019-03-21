@@ -34,7 +34,8 @@ There are 3 versions of the `reviews` microservice:
 Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) application:
 
 ```bash
-kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
+#kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 sleep 400
 ```
 
@@ -48,27 +49,27 @@ Output:
 
 ```shell
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/details       ClusterIP   172.20.197.97    <none>        9080/TCP   2m    app=details
-service/kubernetes    ClusterIP   172.20.0.1       <none>        443/TCP    34m   <none>
-service/productpage   ClusterIP   172.20.247.22    <none>        9080/TCP   2m    app=productpage
-service/ratings       ClusterIP   172.20.11.142    <none>        9080/TCP   2m    app=ratings
-service/reviews       ClusterIP   172.20.131.160   <none>        9080/TCP   2m    app=reviews
+service/details       ClusterIP   10.100.115.146   <none>        9080/TCP   1m    app=details
+service/kubernetes    ClusterIP   10.100.0.1       <none>        443/TCP    15m   <none>
+service/productpage   ClusterIP   10.100.32.226    <none>        9080/TCP   1m    app=productpage
+service/ratings       ClusterIP   10.100.174.231   <none>        9080/TCP   1m    app=ratings
+service/reviews       ClusterIP   10.100.249.195   <none>        9080/TCP   1m    app=reviews
 
-NAME                                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                IMAGES                                                                        SELECTOR
-deployment.extensions/details-v1       1         1         1            1           2m    details,istio-proxy       istio/examples-bookinfo-details-v1:1.10.1,docker.io/istio/proxyv2:1.1.0       app=details,version=v1
-deployment.extensions/productpage-v1   1         1         1            1           2m    productpage,istio-proxy   istio/examples-bookinfo-productpage-v1:1.10.1,docker.io/istio/proxyv2:1.1.0   app=productpage,version=v1
-deployment.extensions/ratings-v1       1         1         1            1           2m    ratings,istio-proxy       istio/examples-bookinfo-ratings-v1:1.10.1,docker.io/istio/proxyv2:1.1.0       app=ratings,version=v1
-deployment.extensions/reviews-v1       1         1         1            1           2m    reviews,istio-proxy       istio/examples-bookinfo-reviews-v1:1.10.1,docker.io/istio/proxyv2:1.1.0       app=reviews,version=v1
-deployment.extensions/reviews-v2       1         1         1            1           2m    reviews,istio-proxy       istio/examples-bookinfo-reviews-v2:1.10.1,docker.io/istio/proxyv2:1.1.0       app=reviews,version=v2
-deployment.extensions/reviews-v3       1         1         1            1           2m    reviews,istio-proxy       istio/examples-bookinfo-reviews-v3:1.10.1,docker.io/istio/proxyv2:1.1.0       app=reviews,version=v3
+NAME                                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS    IMAGES                                          SELECTOR
+deployment.extensions/details-v1       1         1         1            1           1m    details       istio/examples-bookinfo-details-v1:1.10.1       app=details,version=v1
+deployment.extensions/productpage-v1   1         1         1            1           1m    productpage   istio/examples-bookinfo-productpage-v1:1.10.1   app=productpage,version=v1
+deployment.extensions/ratings-v1       1         1         1            1           1m    ratings       istio/examples-bookinfo-ratings-v1:1.10.1       app=ratings,version=v1
+deployment.extensions/reviews-v1       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v1:1.10.1       app=reviews,version=v1
+deployment.extensions/reviews-v2       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v2:1.10.1       app=reviews,version=v2
+deployment.extensions/reviews-v3       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v3:1.10.1       app=reviews,version=v3
 
-NAME                                  READY   STATUS    RESTARTS   AGE   IP           NODE                                         NOMINATED NODE
-pod/details-v1-6794fc9579-pf5t8       2/2     Running   0          2m    10.0.1.246   ip-10-0-1-65.eu-central-1.compute.internal   <none>
-pod/productpage-v1-846b6864d5-d9vp8   2/2     Running   0          2m    10.0.0.180   ip-10-0-0-73.eu-central-1.compute.internal   <none>
-pod/ratings-v1-68d978b88c-cq7wd       2/2     Running   0          2m    10.0.1.107   ip-10-0-1-65.eu-central-1.compute.internal   <none>
-pod/reviews-v1-5cff798fbb-fjqtc       2/2     Running   0          2m    10.0.0.45    ip-10-0-0-73.eu-central-1.compute.internal   <none>
-pod/reviews-v2-54fb575d97-xjdrg       2/2     Running   0          2m    10.0.1.190   ip-10-0-1-65.eu-central-1.compute.internal   <none>
-pod/reviews-v3-85b7f44cdd-2gqmj       2/2     Running   0          2m    10.0.0.167   ip-10-0-0-73.eu-central-1.compute.internal   <none>
+NAME                                  READY   STATUS    RESTARTS   AGE   IP               NODE                                              NOMINATED NODE
+pod/details-v1-68868454f5-fgckz       2/2     Running   0          1m    192.168.0.110    ip-192-168-11-227.eu-central-1.compute.internal   <none>
+pod/productpage-v1-5cb458d74f-vr6f2   2/2     Running   0          1m    192.168.44.120   ip-192-168-42-115.eu-central-1.compute.internal   <none>
+pod/ratings-v1-76f4c9765f-vx54k       2/2     Running   0          1m    192.168.30.241   ip-192-168-11-227.eu-central-1.compute.internal   <none>
+pod/reviews-v1-56f6855586-gbfrm       2/2     Running   0          1m    192.168.25.4     ip-192-168-11-227.eu-central-1.compute.internal   <none>
+pod/reviews-v2-65c9df47f8-258sx       2/2     Running   0          1m    192.168.62.144   ip-192-168-42-115.eu-central-1.compute.internal   <none>
+pod/reviews-v3-6cf47594fd-ncgm5       2/2     Running   0          1m    192.168.50.202   ip-192-168-42-115.eu-central-1.compute.internal   <none>
 ```
 
 Check the container details - you should see also container `istio-proxy` next
@@ -103,7 +104,7 @@ Output:
 
 ```shell
 ...
-2019-03-20T16:19:57.051507Z     info    Effective config: binaryPath: /usr/local/bin/envoy
+2019-03-21T16:41:16.466062Z     info    Effective config: binaryPath: /usr/local/bin/envoy
 concurrency: 2
 configPath: /etc/istio/proxy
 connectTimeout: 10s
@@ -117,15 +118,15 @@ tracing:
   zipkin:
     address: zipkin.istio-system:9411
 
-2019-03-20T16:19:57.051524Z     info    Monitored certs: []envoy.CertSource{envoy.CertSource{Directory:"/etc/certs/", Files:[]string{"cert-chain.pem", "key.pem", "root-cert.pem"}}}
-2019-03-20T16:19:57.051533Z     info    PilotSAN []string(nil)
-2019-03-20T16:19:57.051655Z     info    Opening status port 15020
+2019-03-21T16:41:16.466078Z     info    Monitored certs: []envoy.CertSource{envoy.CertSource{Directory:"/etc/certs/", Files:[]string{"cert-chain.pem", "key.pem", "root-cert.pem"}}}
+2019-03-21T16:41:16.466086Z     info    PilotSAN []string(nil)
+2019-03-21T16:41:16.467206Z     info    Opening status port 15020
 
-2019-03-20T16:19:57.051788Z     info    Starting proxy agent
-2019-03-20T16:19:57.051908Z     info    Received new config, resetting budget
-2019-03-20T16:19:57.051914Z     info    Reconciling retry (budget 10)
-2019-03-20T16:19:57.051925Z     info    Epoch 0 starting
-2019-03-20T16:19:57.052601Z     info    Envoy command: [-c /etc/istio/proxy/envoy-rev0.json --restart-epoch 0 --drain-time-s 45 --parent-shutdown-time-s 60 --service-cluster productpage.default --service-node sidecar~10.0.0.180~productpage-v1-846b6864d5-d9vp8.default~default.svc.cluster.local --max-obj-name-len 189 --allow-unknown-fields -l warning --concurrency 2]
+2019-03-21T16:41:16.467636Z     info    Starting proxy agent
+2019-03-21T16:41:16.467917Z     info    Received new config, resetting budget
+2019-03-21T16:41:16.467924Z     info    Reconciling retry (budget 10)
+2019-03-21T16:41:16.468219Z     info    Epoch 0 starting
+2019-03-21T16:41:16.469316Z     info    Envoy command: [-c /etc/istio/proxy/envoy-rev0.json --restart-epoch 0 --drain-time-s 45 --parent-shutdown-time-s 60 --service-cluster productpage.default --service-node sidecar~192.168.44.120~productpage-v1-5cb458d74f-vr6f2.default~default.svc.cluster.local --max-obj-name-len 189 --allow-unknown-fields -l warning --concurrency 2]
 ...
 ```
 
@@ -192,10 +193,10 @@ Output:
 
 ```shell
 NAME                                           AGE
-gateway.networking.istio.io/bookinfo-gateway   24s
+gateway.networking.istio.io/bookinfo-gateway   7s
 
 NAME                                          GATEWAYS             HOSTS   AGE
-virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     25s
+virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     7s
 ```
 
 Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
@@ -250,7 +251,7 @@ Output:
 ...
 ```
 
-Generate some traffic for next 5 minutes to gether some data:
+Generate some traffic for next 5 minutes to gather some data:
 
 ```bash
 siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://mylabs.dev/productpage &
@@ -274,7 +275,7 @@ Open the browser with these pages:
 
 * [Prometheus](https://prometheus.io/):
 
-  * [http://prometheus.mylabs.dev/graph](http://prometheus.mylabs.dev/graph)
+  * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
 
 * [Grafana](https://grafana.com/):
 

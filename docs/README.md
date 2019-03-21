@@ -18,7 +18,7 @@ and observe what exactly is going on with your services.
 * [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator)
 * [AWS account](https://aws.amazon.com/account/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-* [terraform](https://www.terraform.io/)
+* [eksctl](https://eksctl.io/)
 * Kubernetes and linux knowledge required
 
 ## Objectives

@@ -1,13 +1,3 @@
-# Terraform caching files
-.terraform
-# Terraform temporary state files
-*.tfstate*
-# Terraform temporary state files backup
-*.tfstate.backup
-# Terraforms variables
-*.tfvars
-# Terraform crash log
-crash.log
 # demo-magic.sh script
 demo-magic.sh
 # Kubernetes kubeconfig file

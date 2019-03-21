@@ -14,17 +14,15 @@ Install necessary software:
 
 ```bash
 apt update -qq
-apt-get install -y -qq apt-transport-https awscli curl git gnupg jq openssh-client psmisc siege sudo unzip vim > /dev/null
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl git openssh-client siege sudo > /dev/null
 ```
 
 Install `kubernetes-client` package:
 
 ```bash
 if [ ! -x /usr/local/bin/kubectl ]; then
-  curl --silent https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
-  apt-get update -qq
-  apt-get install -y -qq kubectl
+  sudo curl -s -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  sudo chmod a+x /usr/local/bin/kubectl
 fi
 ```
 
@@ -32,8 +30,7 @@ Install [eksctl](https://eksctl.io/):
 
 ```bash
 if [ ! -x /usr/local/bin/eksctl ]; then
-  curl --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-  sudo mv /tmp/eksctl /usr/local/bin
+  curl -s -L "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz" | sudo tar xz -C /usr/local/bin/
 fi
 ```
 
@@ -41,7 +38,7 @@ Install [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sig
 
 ```bash
 if [ ! -x /usr/local/bin/aws-iam-authenticator ]; then
-  sudo curl --silent -Lo /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator
+  sudo curl -s -Lo /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator
   sudo chmod a+x /usr/local/bin/aws-iam-authenticator
 fi
 ```

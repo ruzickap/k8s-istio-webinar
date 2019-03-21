@@ -37,9 +37,6 @@ and observe what exactly is going on with your services.
 * [Part 02 - Install Helm](part-02/README.md)
 * [Part 03 - Istio - Installation](part-03/README.md)
 * [Part 04 - Istio - Bookinfo Application](part-04/README.md)
-* [Part 05 - Istio - Configuring Request Routing](part-05/README.md)
-* [Part 06 - Istio - Injecting an HTTP delay fault](part-06/README.md)
-* [Part 07 - Istio - Weight-based routing](part-07/README.md)
 
 ::: tip
 In case you turned off / restart your computer please verify you

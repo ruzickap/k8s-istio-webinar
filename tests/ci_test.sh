@@ -5,7 +5,7 @@ kubeadm-dind-cluster_install() {
   chmod +x dind-cluster.sh
 
   # start the cluster
-  NUM_NODES=3 SKIP_DASHBOARD="true" SKIP_SNAPSHOT="true" ./dind-cluster.sh up
+  NUM_NODES=2 SKIP_DASHBOARD="true" SKIP_SNAPSHOT="true" ./dind-cluster.sh up
 
   # add kubectl directory to PATH
   export PATH="$HOME/.kubeadm-dind-cluster:$PATH"
@@ -26,7 +26,7 @@ kubeadm-dind-cluster_install
 kubectl cluster-info
 
 # Commands
-sed -n '/^```bash$/,/^```$/p' docs/part-{02..03}/README.md | sed '/^```*/d' > README.sh
+sed -n '/^```bash$/,/^```$/p' docs/part-{02..04}/README.md | sed '/^```*/d' > README.sh
 source ./README.sh
 
 # Istio + app cleanup

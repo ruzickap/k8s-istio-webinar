@@ -97,4 +97,4 @@ jobs:
       services:
         - docker
       script:
-        - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" https://${TRAVIS_REPO_SLUG%/*}.github.io/${TRAVIS_REPO_SLUG##*/}
+        - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" --ignore-url "(http|https)://.*mylabs.dev" https://${TRAVIS_REPO_SLUG%/*}.github.io/${TRAVIS_REPO_SLUG##*/}

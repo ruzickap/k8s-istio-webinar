@@ -47,6 +47,41 @@ spec:
         host: grafana.istio-system.svc.cluster.local
         port:
           number: 3000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: grafana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 15031
+      name: http2-grafana
+      protocol: HTTP2
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - grafana-gateway
+  http:
+  - match:
+    - port: 15031
+    route:
+    - destination:
+        host: grafana.istio-system.svc.cluster.local
+        port:
+          number: 3000
 
 ---
 ##################
@@ -60,7 +95,7 @@ metadata:
   name: jaeger-destination-rule
   namespace: istio-system
 spec:
-  host: jaeger.istio-system.svc.cluster.local
+  host: tracing.istio-system.svc.cluster.local
   trafficPolicy:
     tls:
       mode: DISABLE
@@ -78,9 +113,44 @@ spec:
   http:
   - route:
     - destination:
-        host: jaeger-query.istio-system.svc.cluster.local
+        host: tracing.istio-system.svc.cluster.local
         port:
           number: 16686
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: tracing-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 15032
+      name: http2-tracing
+      protocol: HTTP2
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tracing-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - tracing-gateway
+  http:
+  - match:
+    - port: 15032
+    route:
+    - destination:
+        host: tracing.istio-system.svc.cluster.local
+        port:
+          number: 80
 
 ---
 ##################
@@ -115,6 +185,41 @@ spec:
         host: kiali.istio-system.svc.cluster.local
         port:
           number: 20001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kiali-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 15029
+      name: http2-kiali
+      protocol: HTTP2
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - kiali-gateway
+  http:
+  - match:
+    - port: 15029
+    route:
+    - destination:
+        host: kiali.istio-system.svc.cluster.local
+        port:
+          number: 20001
 
 ---
 ##################
@@ -145,6 +250,41 @@ spec:
   - my-gateway
   http:
   - route:
+    - destination:
+        host: prometheus.istio-system.svc.cluster.local
+        port:
+          number: 9090
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: prometheus-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 15030
+      name: http2-prometheus
+      protocol: HTTP2
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - prometheus-gateway
+  http:
+  - match:
+    - port: 15030
+    route:
     - destination:
         host: prometheus.istio-system.svc.cluster.local
         port:

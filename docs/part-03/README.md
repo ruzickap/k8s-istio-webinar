@@ -38,6 +38,10 @@ Install [Istio](https://istio.io/):
 
 ```bash
 helm install install/kubernetes/helm/istio --wait --name istio --namespace istio-system \
+  --set gateways.istio-ingressgateway.sds.enabled=true \
+  --set global.k8sIngress.enabled=true \
+  --set global.k8sIngress.enableHttps=true \
+  --set global.k8sIngress.gatewayName=ingressgateway \
   --set grafana.enabled=true \
   --set kiali.enabled=true \
   --set kiali.createDemoSecret=true \
@@ -45,9 +49,7 @@ helm install install/kubernetes/helm/istio --wait --name istio --namespace istio
   --set kiali.dashboard.grafanaURL=http://grafana.mylabs.dev/ \
   --set kiali.dashboard.jaegerURL=http://jaeger.mylabs.dev/ \
   --set servicegraph.enabled=true \
-  --set tracing.enabled=true \
-  --set global.configValidation=false \
-  --set sidecarInjectorWebhook.enabled=false
+  --set tracing.enabled=true
 ```
 
 Allow the `default` namespace to use Istio injection:

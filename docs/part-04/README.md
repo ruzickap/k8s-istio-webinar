@@ -34,7 +34,6 @@ There are 3 versions of the `reviews` microservice:
 Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) application:
 
 ```bash
-#kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 sleep 400
 ```
@@ -204,7 +203,7 @@ Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productp
 Confirm the app is running:
 
 ```bash
-curl -o /dev/null -s -w "%{http_code}\n" -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" http://mylabs.dev/productpage
+curl -o /dev/null -s -w "%{http_code}\n" http://mylabs.dev/productpage
 ```
 
 Output:
@@ -277,6 +276,19 @@ Open the browser with these pages:
 
   * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
 
+  * Total count of all requests to the productpage service:
+
+    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0)
+
+  * Total count of all requests to v1 of the reviews service:
+
+    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
+
+  * Rate of requests over the past 5 minutes to all instances of the productpage
+    service:
+
+    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0)
+
 * [Grafana](https://grafana.com/):
 
   * [http://grafana.mylabs.dev](http://grafana.mylabs.dev)
@@ -288,6 +300,18 @@ Open the browser with these pages:
     * Istio Service Dashboard
 
     * Istio Workload Dashboard
+
+In case of DNS issue you can use the services exposed on ports:
+
+```bash
+# IP ADDRESS OF CLUSTER INGRESS
+kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
+
+* Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`
+* Prometheus: `http://<IP ADDRESS OF CLUSTER INGRESS>:15030`
+* Grafana: `http://<IP ADDRESS OF CLUSTER INGRESS>:15031`
+* Tracing: `http://<IP ADDRESS OF CLUSTER INGRESS>:15032`
 
 Open the Bookinfo site in your browser [http://mylabs.dev/productpage](http://mylabs.dev/productpage)
 and refresh the page several times - you should see different versions

@@ -203,7 +203,7 @@ Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productp
 Confirm the app is running:
 
 ```bash
-curl -o /dev/null -s -w "%{http_code}\n" http://mylabs.dev/productpage
+curl -o /dev/null -s -w "%{http_code}\n" http://${MY_DOMAIN}/productpage
 ```
 
 Output:
@@ -253,7 +253,7 @@ Output:
 Generate some traffic for next 5 minutes to gather some data:
 
 ```bash
-siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://mylabs.dev/productpage &
+siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &
 ```
 
 Open the browser with these pages:

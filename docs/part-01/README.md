@@ -3,6 +3,12 @@
 Before you start with the main content of the webinar, you need to provision
 the [Amazon EKS](https://aws.amazon.com/eks/) in AWS.
 
+Use this domain variable:
+
+```bash
+MY_DOMAIN=mylabs.dev
+```
+
 ## Prepare the local working environment
 
 ::: tip
@@ -55,7 +61,7 @@ aws configure
 Create DNS zone:
 
 ```bash
-aws route53 create-hosted-zone --name mylabs.dev --caller-reference "mylabs.dev"
+aws route53 create-hosted-zone --name ${MY_DOMAIN} --caller-reference ${MY_DOMAIN}
 ```
 
 Use your domain registrar to change the nameservers for your zone (mylabs.dev)
@@ -64,7 +70,7 @@ should use:
 
 ```bash
 aws route53 get-hosted-zone \
-  --id $(aws route53 list-hosted-zones --query "HostedZones[?Name=='mylabs.dev.'].Id" --output text) \
+  --id $(aws route53 list-hosted-zones --query "HostedZones[?Name=='${MY_DOMAIN}.'].Id" --output text) \
   --query 'DelegationSet.NameServers'
 ```
 

@@ -46,8 +46,8 @@ helm install install/kubernetes/helm/istio --wait --name istio --namespace istio
   --set kiali.enabled=true \
   --set kiali.createDemoSecret=true \
   --set kiali.contextPath=/ \
-  --set kiali.dashboard.grafanaURL=http://grafana.mylabs.dev/ \
-  --set kiali.dashboard.jaegerURL=http://jaeger.mylabs.dev/ \
+  --set kiali.dashboard.grafanaURL=http://grafana.${MY_DOMAIN}/ \
+  --set kiali.dashboard.jaegerURL=http://jaeger.${MY_DOMAIN}/ \
   --set servicegraph.enabled=true \
   --set tracing.enabled=true
 ```
@@ -79,7 +79,7 @@ Create DNS record `mylabs.dev` for the Ingress loadbalancer:
 ```bash
 LOADBALANCER_HOSTNAME=$(kubectl get svc istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 CANONICAL_HOSTED_ZONE_NAME_ID=$(aws elb describe-load-balancers --query "LoadBalancerDescriptions[?DNSName=='$LOADBALANCER_HOSTNAME'].CanonicalHostedZoneNameID" --output text)
-HOSTED_ZONE_ID=$(aws route53 list-hosted-zones --query "HostedZones[?Name=='mylabs.dev.'].Id" --output text)
+HOSTED_ZONE_ID=$(aws route53 list-hosted-zones --query "HostedZones[?Name=='${MY_DOMAIN}.'].Id" --output text)
 
 cat > /tmp/aws_route53-dns_change.json << EOF
 {
@@ -88,7 +88,7 @@ cat > /tmp/aws_route53-dns_change.json << EOF
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "*.mylabs.dev.",
+        "Name": "*.${MY_DOMAIN}.",
         "Type": "A",
         "AliasTarget":{
           "HostedZoneId": "${CANONICAL_HOSTED_ZONE_NAME_ID}",
@@ -100,7 +100,7 @@ cat > /tmp/aws_route53-dns_change.json << EOF
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "mylabs.dev.",
+        "Name": "${MY_DOMAIN}.",
         "Type": "A",
         "AliasTarget":{
           "HostedZoneId": "${CANONICAL_HOSTED_ZONE_NAME_ID}",

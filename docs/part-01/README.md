@@ -43,10 +43,7 @@ if [ ! -x /usr/local/bin/aws-iam-authenticator ]; then
 fi
 ```
 
-## Create Amazon EKS
-
-![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/master/static/images/3-service-animated.gif
-"EKS")
+## Configure AWS
 
 Authorize to AWS using AWS CLI: [https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
@@ -54,6 +51,27 @@ Authorize to AWS using AWS CLI: [https://docs.aws.amazon.com/cli/latest/userguid
 aws configure
 ...
 ```
+
+Create DNS zone:
+
+```bash
+aws route53 create-hosted-zone --name mylabs.dev --caller-reference "mylabs.dev"
+```
+
+Use your domain registrar to change the nameservers for your zone (mylabs.dev)
+to use Amazon Route 53 nameservers. Here are the Route 53 nameservers you
+should use:
+
+```bash
+aws route53 get-hosted-zone \
+  --id $(aws route53 list-hosted-zones --query "HostedZones[?Name=='mylabs.dev.'].Id" --output text) \
+  --query 'DelegationSet.NameServers'
+```
+
+## Create Amazon EKS
+
+![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/master/static/images/3-service-animated.gif
+"EKS")
 
 Generate ssh keys if not exists:
 
@@ -99,7 +117,7 @@ ip-192-168-11-227.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.
 ip-192-168-42-115.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.42.115   18.195.182.75    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
 ```
 
-Both worker nodes shoule be accessible via ssh:
+Both worker nodes should be accessible via ssh:
 
 ```bash
 for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'); do

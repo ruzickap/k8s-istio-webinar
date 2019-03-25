@@ -35,6 +35,7 @@ helm delete --purge istio
 helm delete --purge istio-init
 kubectl delete -f install/kubernetes/helm/istio-init/files
 kubectl delete namespace istio-system
+kubectl label namespace default istio-injection-
 
 cd ../..
 rm -rf tmp

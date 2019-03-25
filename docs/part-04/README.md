@@ -206,6 +206,33 @@ Check the ssl certificate
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
 ```
 
+Output:
+
+```shell
+Certificate:
+    Data:
+        Version: 3 (0x2)
+...
+        Validity
+            Not Before: Mar 25 11:29:48 2019 GMT
+            Not After : Jun 23 11:29:48 2019 GMT
+        Subject: CN = *.mylabs.dev
+...
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage:
+                TLS Web Server Authentication, TLS Web Client Authentication
+...
+            X509v3 Subject Alternative Name:
+                DNS:*.mylabs.dev, DNS:mylabs.dev
+            X509v3 Certificate Policies:
+                Policy: 2.23.140.1.2.1
+                Policy: 1.3.6.1.4.1.44947.1.1.1
+                  CPS: http://cps.letsencrypt.org
+...
+```
+
 Confirm the app is running:
 
 ```bash
@@ -311,7 +338,7 @@ In case of DNS issue you can use the services exposed on ports:
 
 ```bash
 # IP ADDRESS OF CLUSTER INGRESS
-kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
 ```
 
 * Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`

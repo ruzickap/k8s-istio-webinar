@@ -3,9 +3,16 @@
 Before you start with the main content of the webinar, you need to provision
 the [Amazon EKS](https://aws.amazon.com/eks/) in AWS.
 
-Use the domain variable:
+Use the `MY_DOMAIN` variable containing domain and `LETSENCRYPT_ENVIRONMENT`
+variable.
+The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
+
+* `staging` - Let’s Encrypt will create testing certificate (not valid)
+
+* `production` - Let’s Encrypt will create valid certificate (use with care)
 
 ```bash
+export LETSENCRYPT_ENVIRONMENT="staging"
 export MY_DOMAIN="mylabs.dev"
 ```
 
@@ -116,8 +123,15 @@ aws iam attach-user-policy --user-name "${USER}-eks-cert-manager-route53" --poli
 aws iam create-access-key --user-name ${USER}-eks-cert-manager-route53
 ...
         "AccessKeyId": "AXXXXXXXXXXXXXXXXXXQ",
-        "SecretAccessKey": "IXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXd",
+        "SecretAccessKey": "jXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXQ",
 ...
+```
+
+Set the variables using the new
+
+```bash
+export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID:-AXXXXXXXXXXXXXXXXXXQ}
+export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID:-jXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXQ}
 ```
 
 Write down the `AccessKeyId` and `SecretAccessKey` you will need it later to use
@@ -175,7 +189,7 @@ ip-192-168-42-115.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.
 Both worker nodes should be accessible via ssh:
 
 ```bash
-for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'); do
+for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do
   echo "*** ${EXTERNAL_IP}"
   ssh -q -o StrictHostKeyChecking=no -l ec2-user ${EXTERNAL_IP} uptime
 done

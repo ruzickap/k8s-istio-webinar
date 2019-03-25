@@ -22,7 +22,7 @@ spec:
     hosts:
     - "*"
     tls:
-      credentialName: ingress-cert-staging
+      credentialName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
       mode: SIMPLE
       privateKey: sds
       serverCertificate: sds

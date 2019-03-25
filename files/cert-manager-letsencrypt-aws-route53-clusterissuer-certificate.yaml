@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-route53-secret-access-key-secret
+  namespace: istio-system
+data:
+  secret-access-key: $EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging-dns
+  namespace: istio-system
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: petr.ruzicka@gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-staging-dns
+    dns01:
+      # Here we define a list of DNS-01 providers that can solve DNS challenges
+      providers:
+      - name: aws-route53
+        route53:
+          accessKeyID: ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID}
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            name: aws-route53-secret-access-key-secret
+            key: secret-access-key
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production-dns
+  namespace: istio-system
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: petr.ruzicka@gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-production-dns
+    dns01:
+      # Here we define a list of DNS-01 providers that can solve DNS challenges
+      providers:
+      - name: aws-route53
+        route53:
+          accessKeyID: ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID}
+          region: eu-central-1
+          secretAccessKeySecretRef:
+            name: aws-route53-secret-access-key-secret
+            key: secret-access-key
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
+  namespace: istio-system
+spec:
+  secretName: ingress-cert-${LETSENCRYPT_ENVIRONMENT}
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-${LETSENCRYPT_ENVIRONMENT}-dns
+  commonName: "*.${MY_DOMAIN}"
+  dnsNames:
+  - "*.${MY_DOMAIN}"
+  - ${MY_DOMAIN}
+  acme:
+    config:
+    - dns01:
+        provider: aws-route53
+      domains:
+      - "*.${MY_DOMAIN}"
+      - ${MY_DOMAIN}

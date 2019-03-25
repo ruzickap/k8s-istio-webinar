@@ -200,6 +200,12 @@ virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     7s
 
 Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
 
+Check the ssl certificate
+
+```bash
+echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
+```
+
 Confirm the app is running:
 
 ```bash
@@ -260,38 +266,38 @@ Open the browser with these pages:
 
 * Servicegraph:
 
-  * [http://servicegraph.mylabs.dev/force/forcegraph.html](http://servicegraph.mylabs.dev/force/forcegraph.html)
+  * [https://servicegraph.mylabs.dev/force/forcegraph.html](https://servicegraph.mylabs.dev/force/forcegraph.html)
 
-  * [http://servicegraph.mylabs.dev/dotviz](http://servicegraph.mylabs.dev/dotviz)
+  * [https://servicegraph.mylabs.dev/dotviz](https://servicegraph.mylabs.dev/dotviz)
 
 * [Kiali](https://www.kiali.io/):
 
-  * [http://kiali.mylabs.dev](http://kiali.mylabs.dev) (admin/admin)
+  * [https://kiali.mylabs.dev](https://kiali.mylabs.dev) (admin/admin)
 
 * [Jaeger](https://www.jaegertracing.io/):
 
-  * [http://jaeger.mylabs.dev](http://jaeger.mylabs.dev)
+  * [https://jaeger.mylabs.dev](https://jaeger.mylabs.dev)
 
 * [Prometheus](https://prometheus.io/):
 
-  * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
+  * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
 
   * Total count of all requests to the productpage service:
 
-    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0)
+    * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0)
 
   * Total count of all requests to v1 of the reviews service:
 
-    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
+    * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
 
   * Rate of requests over the past 5 minutes to all instances of the productpage
     service:
 
-    * [http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0](http://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0)
+    * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0)
 
 * [Grafana](https://grafana.com/):
 
-  * [http://grafana.mylabs.dev](http://grafana.mylabs.dev)
+  * [https://grafana.mylabs.dev](https://grafana.mylabs.dev)
 
   * Grafana -> Home -> Istio ->
 

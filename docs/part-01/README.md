@@ -3,10 +3,10 @@
 Before you start with the main content of the webinar, you need to provision
 the [Amazon EKS](https://aws.amazon.com/eks/) in AWS.
 
-Use this domain variable:
+Use the domain variable:
 
 ```bash
-MY_DOMAIN=mylabs.dev
+export MY_DOMAIN="mylabs.dev"
 ```
 
 ## Prepare the local working environment
@@ -74,6 +74,55 @@ aws route53 get-hosted-zone \
   --query 'DelegationSet.NameServers'
 ```
 
+Create policy allowing the cert-manager to change Route 53 settings:
+
+```bash
+cat > /tmp/${USER}-route_53_change_policy.json << EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "route53:GetChange",
+            "Resource": "arn:aws:route53:::change/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ChangeResourceRecordSets",
+            "Resource": "arn:aws:route53:::hostedzone/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ListHostedZonesByName",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+
+aws iam create-policy \
+  --policy-name ${USER}-AmazonRoute53Domains-cert-manager \
+  --description "Policy required by cert-manager to be able to modify Route 53 when generating wildcard certificates using Let's Encrypt" \
+  --policy-document file:///tmp/${USER}-route_53_change_policy.json
+```
+
+Create user which will use the policy above allowing the cert-manager to change
+Route 53 settings:
+
+```bash
+aws iam create-user --user-name ${USER}-eks-cert-manager-route53
+POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='${USER}-AmazonRoute53Domains-cert-manager'].{ARN:Arn}" --output text)
+aws iam attach-user-policy --user-name "${USER}-eks-cert-manager-route53" --policy-arn $POLICY_ARN
+aws iam create-access-key --user-name ${USER}-eks-cert-manager-route53
+...
+        "AccessKeyId": "AXXXXXXXXXXXXXXXXXXQ",
+        "SecretAccessKey": "IXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXd",
+...
+```
+
+Write down the `AccessKeyId` and `SecretAccessKey` you will need it later to use
+it in `ClusterIssuer` definition for `cert-manager`.
+
 ## Create Amazon EKS
 
 ![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/master/static/images/3-service-animated.gif
@@ -103,7 +152,7 @@ eksctl create cluster \
 --ssh-access \
 --node-ami=auto \
 --node-labels "Application=Istio_Webinar,Owner=${USER},Environment=Webinar,Division=Services" \
---kubeconfig=./kubeconfig.conf \
+--kubeconfig=kubeconfig.conf \
 --verbose 4
 ```
 

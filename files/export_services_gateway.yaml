@@ -13,6 +13,19 @@ spec:
       protocol: HTTP2
     hosts:
     - "*"
+    # tls:
+    #   httpsRedirect: true # sends 301 redirect for http requests
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - "*"
+    tls:
+      credentialName: ingress-cert-staging
+      mode: SIMPLE
+      privateKey: sds
+      serverCertificate: sds
 
 ---
 ##################

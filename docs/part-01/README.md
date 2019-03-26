@@ -12,8 +12,8 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 * `production` - Let’s Encrypt will create valid certificate (use with care)
 
 ```bash
-export LETSENCRYPT_ENVIRONMENT="staging"
-export MY_DOMAIN="mylabs.dev"
+export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
+export MY_DOMAIN=${MY_DOMAIN:-mylabs.dev}
 ```
 
 ## Prepare the local working environment
@@ -77,7 +77,7 @@ should use:
 
 ```bash
 aws route53 get-hosted-zone \
-  --id $(aws route53 list-hosted-zones --query "HostedZones[?Name=='${MY_DOMAIN}.'].Id" --output text) \
+  --id $(aws route53 list-hosted-zones --query "HostedZones[?Name==\`${MY_DOMAIN}.\`].Id" --output text) \
   --query 'DelegationSet.NameServers'
 ```
 

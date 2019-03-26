@@ -27,7 +27,7 @@ Install necessary software:
 
 ```bash
 apt update -qq
-DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl git openssh-client siege sudo > /dev/null
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl gettext-base git openssh-client siege sudo > /dev/null
 ```
 
 Install `kubernetes-client` package:

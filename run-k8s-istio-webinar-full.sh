@@ -39,14 +39,12 @@ clear
 
 # export LETSENCRYPT_ENVIRONMENT="staging"
 # export MY_DOMAIN="mylabs.dev"
-# export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID="AxxxxxxxxxxxxxxxxxxQ"
-# export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY="jxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxQ"
 
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 # ./run-k8s-istio-webinar-full.sh
 
-sed '/^## Configure AWS/,/^## Create Amazon EKS/d' docs/part-{01..09}/README.md | \
+sed '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings:/d' docs/part-{01..09}/README.md | \
 sed -n '/^```bash$/,/^```$/p;/^-----$/p'  | \
 sed -e 's/^-----$/\
 p  ""\

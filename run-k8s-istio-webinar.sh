@@ -39,8 +39,8 @@ clear
 
 # export LETSENCRYPT_ENVIRONMENT="staging"
 # export MY_DOMAIN="mylabs.dev"
-# export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID="AxxxxxxxxxxxxxxxxxxQ"
-# export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY="jxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxQ"
+# export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=$(awk -F\" '/AccessKeyId/ { print $4 }' $HOME/.aws/${USER}-eks-cert-manager-route53)
+# export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=$(awk -F\" '/SecretAccessKey/ { print $4 }' $HOME/.aws/${USER}-eks-cert-manager-route53)
 
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar

@@ -26,7 +26,8 @@ installed.
 Install necessary software:
 
 ```bash
-apt update -qq
+test -x /usr/bin/apt && \
+apt update -qq && \
 DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl gettext-base git openssh-client siege sudo > /dev/null
 ```
 
@@ -78,39 +79,16 @@ should use:
 ```bash
 aws route53 get-hosted-zone \
   --id $(aws route53 list-hosted-zones --query "HostedZones[?Name==\`${MY_DOMAIN}.\`].Id" --output text) \
-  --query 'DelegationSet.NameServers'
+  --query "DelegationSet.NameServers"
 ```
 
 Create policy allowing the cert-manager to change Route 53 settings:
 
 ```bash
-cat > /tmp/${USER}-route_53_change_policy.json << EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": "route53:GetChange",
-            "Resource": "arn:aws:route53:::change/*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "route53:ChangeResourceRecordSets",
-            "Resource": "arn:aws:route53:::hostedzone/*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "route53:ListHostedZonesByName",
-            "Resource": "*"
-        }
-    ]
-}
-EOF
-
 aws iam create-policy \
   --policy-name ${USER}-AmazonRoute53Domains-cert-manager \
-  --description "Policy required by cert-manager to be able to modify Route 53 when generating wildcard certificates using Let's Encrypt" \
-  --policy-document file:///tmp/${USER}-route_53_change_policy.json
+  --description "Policy required by cert-manager to be able to modify Route 53 when generating wildcard certificates using Lets Encrypt" \
+  --policy-document file://files/route_53_change_policy.json
 ```
 
 Create user which will use the policy above allowing the cert-manager to change
@@ -118,24 +96,15 @@ Route 53 settings:
 
 ```bash
 aws iam create-user --user-name ${USER}-eks-cert-manager-route53
-POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='${USER}-AmazonRoute53Domains-cert-manager'].{ARN:Arn}" --output text)
+POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName==\`${USER}-AmazonRoute53Domains-cert-manager\`].{ARN:Arn}" --output text)
 aws iam attach-user-policy --user-name "${USER}-eks-cert-manager-route53" --policy-arn $POLICY_ARN
-aws iam create-access-key --user-name ${USER}-eks-cert-manager-route53
-...
-        "AccessKeyId": "AXXXXXXXXXXXXXXXXXXQ",
-        "SecretAccessKey": "jXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXQ",
-...
+aws iam create-access-key --user-name ${USER}-eks-cert-manager-route53 > $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN}
+export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=$(awk -F\" "/AccessKeyId/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})
+export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})
 ```
 
-Set the variables using the new
-
-```bash
-export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID:-AXXXXXXXXXXXXXXXXXXQ}
-export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID:-jXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXQ}
-```
-
-Write down the `AccessKeyId` and `SecretAccessKey` you will need it later to use
-it in `ClusterIssuer` definition for `cert-manager`.
+The `AccessKeyId` and `SecretAccessKey` is need for creating the `ClusterIssuer`
+definition for `cert-manager`.
 
 ## Create Amazon EKS
 
@@ -166,8 +135,7 @@ eksctl create cluster \
 --ssh-access \
 --node-ami=auto \
 --node-labels "Application=Istio_Webinar,Owner=${USER},Environment=Webinar,Division=Services" \
---kubeconfig=kubeconfig.conf \
---verbose 4
+--kubeconfig=kubeconfig.conf
 ```
 
 Check if the new EKS cluster is available:

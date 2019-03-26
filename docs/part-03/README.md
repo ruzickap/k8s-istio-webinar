@@ -183,7 +183,7 @@ Configure the Istio services ([Jaeger](https://www.jaegertracing.io/),
 [Kiali](http://kiali.mylabs.dev), Servicegraph) to be visible externally:
 
 ```bash
-kubectl create -f ../../files/export_services_gateway.yaml
+envsubst < ../../files/export_services_gateway.yaml | kubectl apply -f -
 ```
 
 ![Istio](../.vuepress/public/istio.svg "Istio")

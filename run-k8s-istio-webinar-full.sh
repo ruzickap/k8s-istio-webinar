@@ -41,6 +41,7 @@ clear
 # export MY_DOMAIN="mylabs.dev"
 
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null
+# cd /mnt
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 # ./run-k8s-istio-webinar-full.sh
 

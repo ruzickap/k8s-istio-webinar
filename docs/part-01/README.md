@@ -12,8 +12,8 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 * `production` - Let’s Encrypt will create valid certificate (use with care)
 
 ```bash
-export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
 export MY_DOMAIN=${MY_DOMAIN:-mylabs.dev}
+export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
 ```
 
 ## Prepare the local working environment

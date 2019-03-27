@@ -198,9 +198,7 @@ NAME                                          GATEWAYS             HOSTS   AGE
 virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     7s
 ```
 
-Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
-
-Check the ssl certificate
+Check the SSL certificate:
 
 ```bash
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
@@ -232,6 +230,64 @@ Certificate:
                   CPS: http://cps.letsencrypt.org
 ...
 ```
+
+You can also use the cert-manager directly to see the cert status
+
+```bash
+kubectl describe certificates ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n istio-system
+```
+
+Output:
+
+```shell
+Name:         ingress-cert-staging
+Namespace:    istio-system
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"certmanager.k8s.io/v1alpha1","kind":"Certificate","metadata":{"annotations":{},"name":"ingress-cert-staging","namespace":"i...
+API Version:  certmanager.k8s.io/v1alpha1
+Kind:         Certificate
+Metadata:
+  Creation Timestamp:  2019-03-27T09:20:20Z
+  Generation:          1
+  Resource Version:    3183
+  Self Link:           /apis/certmanager.k8s.io/v1alpha1/namespaces/istio-system/certificates/ingress-cert-staging
+  UID:                 8aeff33c-5071-11e9-9540-064d037ebd08
+Spec:
+  Acme:
+    Config:
+      Dns 01:
+        Provider:  aws-route53
+      Domains:
+        *.mylabs.dev
+        mylabs.dev
+  Common Name:  *.mylabs.dev
+  Dns Names:
+    *.mylabs.dev
+    mylabs.dev
+  Issuer Ref:
+    Kind:       ClusterIssuer
+    Name:       letsencrypt-staging-dns
+  Secret Name:  ingress-cert-staging
+Status:
+  Conditions:
+    Last Transition Time:  2019-03-27T09:24:08Z
+    Message:               Certificate is up to date and has not expired
+    Reason:                Ready
+    Status:                True
+    Type:                  Ready
+  Not After:               2019-06-25T08:24:07Z
+Events:
+  Type     Reason          Age                    From          Message
+  ----     ------          ----                   ----          -------
+  Warning  IssuerNotReady  5m57s (x2 over 5m57s)  cert-manager  Issuer letsencrypt-staging-dns not ready
+  Normal   Generated       5m56s                  cert-manager  Generated new private key
+  Normal   OrderCreated    5m56s                  cert-manager  Created Order resource "ingress-cert-staging-3500457514"
+  Normal   OrderComplete   2m9s                   cert-manager  Order "ingress-cert-staging-3500457514" completed successfully
+  Normal   CertIssued      2m9s                   cert-manager  Certificate issued successfully
+```
+
+Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
 
 Confirm the app is running:
 

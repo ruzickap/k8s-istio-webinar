@@ -1,5 +1,12 @@
 # Istio - Bookinfo Application
 
+Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) application:
+
+```bash
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+sleep 400
+```
+
 The Bookinfo application is broken into four separate microservices:
 
 * `productpage` - the productpage microservice calls the details and reviews
@@ -30,13 +37,6 @@ There are 3 versions of the `reviews` microservice:
 
 ![Application Architecture with Istio](https://raw.githubusercontent.com/istio/istio.io/7bf371365e4a16a9a13c0e79355fe1eac7f8f99f/content/docs/examples/bookinfo/withistio.svg?sanitize=true
 "Application Architecture with Istio")
-
-Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) application:
-
-```bash
-kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
-sleep 400
-```
 
 Confirm all services and pods are correctly defined and running:
 
@@ -198,7 +198,8 @@ NAME                                          GATEWAYS             HOSTS   AGE
 virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     7s
 ```
 
-Check the SSL certificate:
+Check the SSL certificate or check the certificate transparency log
+[https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev):
 
 ```bash
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
@@ -231,7 +232,8 @@ Certificate:
 ...
 ```
 
-You can also use the cert-manager directly to see the cert status
+You can also use the [cert-manager](https://github.com/jetstack/cert-manager)
+directly to see the cert status:
 
 ```bash
 kubectl describe certificates ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n istio-system
@@ -287,7 +289,8 @@ Events:
   Normal   CertIssued      2m9s                   cert-manager  Certificate issued successfully
 ```
 
-Point your browser to [http://mylabs.dev/productpage](http://mylabs.dev/productpage).
+![cert-manager high level overview](https://raw.githubusercontent.com/jetstack/cert-manager/4f30ed75e88e5d0defeb950501b5cac6da7fa7fe/docs/images/high-level-overview.png
+"cert-manager high level overview")
 
 Confirm the app is running:
 
@@ -345,10 +348,10 @@ Generate some traffic for next 5 minutes to gather some data:
 siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &
 ```
 
-In case of DNS issue you can use the services exposed on ports:
+In case of DNS issue you can use the services exposed on ports directly from
+loadbalancer:
 
 ```bash
-# IP ADDRESS OF CLUSTER INGRESS
 kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
 ```
 
@@ -375,32 +378,48 @@ Open the browser with these pages:
 
   * [https://servicegraph.mylabs.dev/force/forcegraph.html](https://servicegraph.mylabs.dev/force/forcegraph.html)
 
+    ![Istio Service Graph](servicegraph_istio_service_graph.png "Istio Service Graph")
+
   * [https://servicegraph.mylabs.dev/dotviz](https://servicegraph.mylabs.dev/dotviz)
+
+    ![Service Graph - dotviz](servicegraph_dotviz.png "Service Graph - dotviz")
 
 * [Kiali](https://www.kiali.io/):
 
   * [https://kiali.mylabs.dev](https://kiali.mylabs.dev) (admin/admin)
 
+    ![Kiali](kiali.png "Kiali")
+
 * [Jaeger](https://www.jaegertracing.io/):
 
   * [https://jaeger.mylabs.dev](https://jaeger.mylabs.dev)
+
+    ![Jaeger](jaeger.png "Jaeger")
 
 * [Prometheus](https://prometheus.io/):
 
   * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
 
+    ![Prometheus - istio_requests_total](prometheus_istio_requests_total1.png "Prometheus - istio_requests_total")
+
   * Total count of all requests to the productpage service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0)
+
+      ![Prometheus - istio_requests_total](prometheus_istio_requests_total2.png "Prometheus - istio_requests_total")
 
   * Total count of all requests to v1 of the reviews service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
 
+      ![Prometheus - istio_requests_total](prometheus_istio_requests_total3.png "Prometheus - istio_requests_total")
+
   * Rate of requests over the past 5 minutes to all instances of the productpage
     service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0)
+
+      ![Prometheus - istio_requests_total](prometheus_istio_requests_total4.png "Prometheus - istio_requests_total")
 
 * [Grafana](https://grafana.com/):
 
@@ -410,8 +429,26 @@ Open the browser with these pages:
 
     * Istio Performance Dashboard
 
+      ![Grafana - Istio Performance Dashboard](grafana_istio_performance_dashboard.png "Grafana - Istio Performance Dashboard")
+
     * Istio Service Dashboard
 
+      ![Grafana - Istio Service Dashboard](grafana_istio_service_dashboard.png "Grafana - Istio Service Dashboard")
+
     * Istio Workload Dashboard
+
+      ![Grafana - Istio Workload Dashboard](grafana_istio_workload_dashboard.png "Grafana - Istio Workload Dashboard")
+
+    * Istio Galley Dashboard
+
+      ![Grafana - Galley Dashboard](grafana_istio_galley_dashboard.png "Grafana - Galley Dashboard")
+
+    * Istio Mixer Dashboard
+
+      ![Grafana - Mixer Dashboard](grafana_istio_mixer_dashboard.png "Grafana - Mixer Dashboard")
+
+    * Istio Pilot Dashboard
+
+      ![Grafana - Pilot Dashboard](grafana_istio_pilot_dashboard.png "Grafana - Pilot Dashboard")
 
 ![Istio](../.vuepress/public/istio.svg "Istio")

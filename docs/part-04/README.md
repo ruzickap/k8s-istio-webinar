@@ -80,7 +80,7 @@ kubectl describe pod -l app=productpage
 
 Output:
 
-```shell
+```yaml
 ...
 Containers:
   productpage:
@@ -140,7 +140,7 @@ sleep 5
 
 Output:
 
-```shell
+```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -182,24 +182,75 @@ spec:
           number: 9080
 ```
 
+Create default [destination rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule)
+(subsets) for the Bookinfo services:
+
+```bash
+kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+```
+
+Display the destination rules:
+
+```bash
+kubectl get destinationrules -o yaml
+```
+
+Output:
+
+```yaml
+...
+- apiVersion: networking.istio.io/v1alpha3
+  kind: DestinationRule
+...
+    name: reviews
+    namespace: default
+...
+  spec:
+    host: reviews
+    subsets:
+    - labels:
+        version: v1
+      name: v1
+    - labels:
+        version: v2
+      name: v2
+    - labels:
+        version: v3
+      name: v3
+...
+```
+
 Confirm the gateway and virtualsevice has been created:
 
 ```bash
-kubectl get gateway,virtualservice
+kubectl get gateway,virtualservice,destinationrule
 ```
 
 Output:
 
 ```shell
 NAME                                           AGE
-gateway.networking.istio.io/bookinfo-gateway   7s
+gateway.networking.istio.io/bookinfo-gateway   1h
 
-NAME                                          GATEWAYS             HOSTS   AGE
-virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     7s
+NAME                                                         GATEWAYS             HOSTS                  AGE
+virtualservice.networking.istio.io/bookinfo                  [bookinfo-gateway]   [*]                    1h
+virtualservice.networking.istio.io/details                                        [details]              1h
+virtualservice.networking.istio.io/productpage                                    [productpage]          1h
+virtualservice.networking.istio.io/ratings                                        [ratings]              1h
+virtualservice.networking.istio.io/reviews                                        [reviews]              1h
+
+NAME                                                           HOST          AGE
+destinationrule.networking.istio.io/details                    details       1h
+destinationrule.networking.istio.io/productpage                productpage   1h
+destinationrule.networking.istio.io/ratings                    ratings       1h
+destinationrule.networking.istio.io/reviews                    reviews       1h
 ```
 
-Check the SSL certificate or check the certificate transparency log
-[https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev):
+![Gateway -> VirtualService -> DestinationRule](https://raw.githubusercontent.com/istio/istio.io/92bc65af57592294102e1bc2cb13b333b44a73e0/content/blog/2018/v1alpha3-routing/virtualservices-destrules.svg?sanitize=true
+"Gateway -> VirtualService -> DestinationRule")
+
+Check the SSL certificate (or check the certificate transparency log
+[https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev)):
 
 ```bash
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
@@ -304,44 +355,6 @@ Output:
 200
 ```
 
-Create default [destination rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule)
-(subsets) for the Bookinfo services:
-
-```bash
-kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
-```
-
-Display the destination rules:
-
-```bash
-kubectl get destinationrules -o yaml
-```
-
-Output:
-
-```shell
-...
-- apiVersion: networking.istio.io/v1alpha3
-  kind: DestinationRule
-...
-    name: reviews
-    namespace: default
-...
-  spec:
-    host: reviews
-    subsets:
-    - labels:
-        version: v1
-      name: v1
-    - labels:
-        version: v2
-      name: v2
-    - labels:
-        version: v3
-      name: v3
-...
-```
-
 Generate some traffic for next 5 minutes to gather some data:
 
 ```bash
@@ -378,11 +391,13 @@ Open the browser with these pages:
 
   * [https://servicegraph.mylabs.dev/force/forcegraph.html](https://servicegraph.mylabs.dev/force/forcegraph.html)
 
-    ![Istio Service Graph](./servicegraph_istio_service_graph.png "Istio Service Graph")
+    ![Istio Service Graph](./servicegraph_istio_service_graph.png
+    "Istio Service Graph")
 
   * [https://servicegraph.mylabs.dev/dotviz](https://servicegraph.mylabs.dev/dotviz)
 
-    ![Service Graph - dotviz](./servicegraph_dotviz.png "Service Graph - dotviz")
+    ![Service Graph - dotviz](./servicegraph_dotviz.png
+    "Service Graph - dotviz")
 
 * [Kiali](https://www.kiali.io/):
 

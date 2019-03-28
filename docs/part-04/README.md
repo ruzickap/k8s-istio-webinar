@@ -378,48 +378,52 @@ Open the browser with these pages:
 
   * [https://servicegraph.mylabs.dev/force/forcegraph.html](https://servicegraph.mylabs.dev/force/forcegraph.html)
 
-    ![Istio Service Graph](servicegraph_istio_service_graph.png "Istio Service Graph")
+    ![Istio Service Graph](./servicegraph_istio_service_graph.png "Istio Service Graph")
 
   * [https://servicegraph.mylabs.dev/dotviz](https://servicegraph.mylabs.dev/dotviz)
 
-    ![Service Graph - dotviz](servicegraph_dotviz.png "Service Graph - dotviz")
+    ![Service Graph - dotviz](./servicegraph_dotviz.png "Service Graph - dotviz")
 
 * [Kiali](https://www.kiali.io/):
 
   * [https://kiali.mylabs.dev](https://kiali.mylabs.dev) (admin/admin)
 
-    ![Kiali](kiali.png "Kiali")
+    ![Kiali](./kiali.png "Kiali")
 
 * [Jaeger](https://www.jaegertracing.io/):
 
   * [https://jaeger.mylabs.dev](https://jaeger.mylabs.dev)
 
-    ![Jaeger](jaeger.png "Jaeger")
+    ![Jaeger](./jaeger.png "Jaeger")
 
 * [Prometheus](https://prometheus.io/):
 
   * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total&g0.tab=0)
 
-    ![Prometheus - istio_requests_total](prometheus_istio_requests_total1.png "Prometheus - istio_requests_total")
+    ![Prometheus - istio_requests_total](./prometheus_istio_requests_total1.png
+    "Prometheus - istio_requests_total")
 
   * Total count of all requests to the productpage service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22productpage.default.svc.cluster.local%22%7D&g0.tab=0)
 
-      ![Prometheus - istio_requests_total](prometheus_istio_requests_total2.png "Prometheus - istio_requests_total")
+      ![Prometheus - istio_requests_total](./prometheus_istio_requests_total2.png
+      "Prometheus - istio_requests_total")
 
   * Total count of all requests to v1 of the reviews service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
 
-      ![Prometheus - istio_requests_total](prometheus_istio_requests_total3.png "Prometheus - istio_requests_total")
+      ![Prometheus - istio_requests_total](./prometheus_istio_requests_total3.png
+      "Prometheus - istio_requests_total")
 
   * Rate of requests over the past 5 minutes to all instances of the productpage
     service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=rate(istio_requests_total%7Bdestination_service%3D~%22productpage.*%22%2C%20response_code%3D%22200%22%7D%5B5m%5D)&g0.tab=0)
 
-      ![Prometheus - istio_requests_total](prometheus_istio_requests_total4.png "Prometheus - istio_requests_total")
+      ![Prometheus - istio_requests_total](./prometheus_istio_requests_total4.png
+      "Prometheus - istio_requests_total")
 
 * [Grafana](https://grafana.com/):
 
@@ -429,26 +433,32 @@ Open the browser with these pages:
 
     * Istio Performance Dashboard
 
-      ![Grafana - Istio Performance Dashboard](grafana_istio_performance_dashboard.png "Grafana - Istio Performance Dashboard")
+      ![Grafana - Istio Performance Dashboard](./grafana_istio_performance_dashboard.png
+      "Grafana - Istio Performance Dashboard")
 
     * Istio Service Dashboard
 
-      ![Grafana - Istio Service Dashboard](grafana_istio_service_dashboard.png "Grafana - Istio Service Dashboard")
+      ![Grafana - Istio Service Dashboard](./grafana_istio_service_dashboard.png
+      "Grafana - Istio Service Dashboard")
 
     * Istio Workload Dashboard
 
-      ![Grafana - Istio Workload Dashboard](grafana_istio_workload_dashboard.png "Grafana - Istio Workload Dashboard")
+      ![Grafana - Istio Workload Dashboard](./grafana_istio_workload_dashboard.png
+      "Grafana - Istio Workload Dashboard")
 
     * Istio Galley Dashboard
 
-      ![Grafana - Galley Dashboard](grafana_istio_galley_dashboard.png "Grafana - Galley Dashboard")
+      ![Grafana - Galley Dashboard](./grafana_istio_galley_dashboard.png
+      "Grafana - Galley Dashboard")
 
     * Istio Mixer Dashboard
 
-      ![Grafana - Mixer Dashboard](grafana_istio_mixer_dashboard.png "Grafana - Mixer Dashboard")
+      ![Grafana - Mixer Dashboard](./grafana_istio_mixer_dashboard.png
+      "Grafana - Mixer Dashboard")
 
     * Istio Pilot Dashboard
 
-      ![Grafana - Pilot Dashboard](grafana_istio_pilot_dashboard.png "Grafana - Pilot Dashboard")
+      ![Grafana - Pilot Dashboard](./grafana_istio_pilot_dashboard.png
+      "Grafana - Pilot Dashboard")
 
 ![Istio](../.vuepress/public/istio.svg "Istio")

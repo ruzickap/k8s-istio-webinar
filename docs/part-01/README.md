@@ -144,11 +144,37 @@ eksctl create cluster \
 --kubeconfig=kubeconfig.conf
 ```
 
+Output:
+
+```text
+[ℹ]  using region eu-central-1
+[ℹ]  setting availability zones to [eu-central-1b eu-central-1a eu-central-1c]
+[ℹ]  subnets for eu-central-1b - public:192.168.0.0/19 private:192.168.96.0/19
+[ℹ]  subnets for eu-central-1a - public:192.168.32.0/19 private:192.168.128.0/19
+[ℹ]  subnets for eu-central-1c - public:192.168.64.0/19 private:192.168.160.0/19
+[ℹ]  nodegroup "ng-c9dcf513" will use "ami-07c77043ca4cb9123" [AmazonLinux2/1.11]
+[ℹ]  importing SSH public key "/home/pruzicka/.ssh/id_rsa.pub" as "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-c9dcf513-a3:84:e4:0d:af:5f:c8:40:da:71:68:8a:74:c7:ba:16"
+[ℹ]  creating EKS cluster "pruzicka-k8s-istio-webinar" in "eu-central-1" region
+[ℹ]  will create 2 separate CloudFormation stacks for cluster itself and the initial nodegroup
+[ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=eu-central-1 --name=pruzicka-k8s-istio-webinar'
+[ℹ]  building cluster stack "eksctl-pruzicka-k8s-istio-webinar-cluster"
+[ℹ]  creating nodegroup stack "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-c9dcf513"
+[ℹ]  --nodes-min=2 was set automatically for nodegroup ng-c9dcf513
+[ℹ]  --nodes-max=2 was set automatically for nodegroup ng-c9dcf513
+[✔]  all EKS cluster resource for "pruzicka-k8s-istio-webinar" had been created
+[✔]  saved kubeconfig as "kubeconfig.conf"
+[ℹ]  adding role "arn:aws:iam::822044714040:role/eksctl-pruzicka-k8s-istio-webinar-NodeInstanceRole-14J850V6AXSPO" to auth ConfigMap
+[ℹ]  nodegroup "ng-c9dcf513" has 0 node(s)
+[ℹ]  waiting for at least 2 node(s) to become ready in "ng-c9dcf513"
+[ℹ]  nodegroup "ng-c9dcf513" has 2 node(s)
+[ℹ]  node "ip-192-168-58-163.eu-central-1.compute.internal" is ready
+[ℹ]  node "ip-192-168-88-222.eu-central-1.compute.internal" is ready
+[ℹ]  kubectl command should work with "kubeconfig.conf", try 'kubectl --kubeconfig=kubeconfig.conf get nodes'
+[✔]  EKS cluster "pruzicka-k8s-istio-webinar" in "eu-central-1" region is ready
+```
+
 ![EKS Architecture](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-architecture.svg?sanitize=true
 "EKS Architecture")
-
-![EKS High Level](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-high-level.svg?sanitize=true
-"EKS High Level")
 
 Check if the new EKS cluster is available:
 
@@ -165,6 +191,9 @@ NAME                                              STATUS   ROLES    AGE   VERSIO
 ip-192-168-11-227.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.11.227   18.194.185.132   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
 ip-192-168-42-115.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.42.115   18.195.182.75    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
 ```
+
+![EKS High Level](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-high-level.svg?sanitize=true
+"EKS High Level")
 
 Both worker nodes should be accessible via ssh:
 

@@ -239,7 +239,7 @@ kubectl describe certificates ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n istio-s
 
 Output:
 
-```shell
+```text
 Name:         ingress-cert-staging
 Namespace:    istio-system
 Labels:       <none>
@@ -345,6 +345,30 @@ Generate some traffic for next 5 minutes to gather some data:
 siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &
 ```
 
+In case of DNS issue you can use the services exposed on ports:
+
+```bash
+# IP ADDRESS OF CLUSTER INGRESS
+kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
+```
+
+* Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`
+* Prometheus: `http://<IP ADDRESS OF CLUSTER INGRESS>:15030`
+* Grafana: `http://<IP ADDRESS OF CLUSTER INGRESS>:15031`
+* Tracing: `http://<IP ADDRESS OF CLUSTER INGRESS>:15032`
+
+Open the Bookinfo site in your browser [http://mylabs.dev/productpage](http://mylabs.dev/productpage)
+and refresh the page several times - you should see different versions
+of reviews shown in productpage, presented in a **round robin style**
+(red stars, black stars, no stars), since we haven't yet used Istio to control
+the version routing.
+
+![Bookinfo v1, v3, v2](./bookinfo_v1_v3_v2.gif "Bookinfo v1, v3, v2")
+
+Check the flows in [Kiali](https://www.kiali.io/) graph:
+
+![Istio Graph](./istio_kiali_graph.gif "Istio Graph")
+
 Open the browser with these pages:
 
 * Servicegraph:
@@ -389,29 +413,5 @@ Open the browser with these pages:
     * Istio Service Dashboard
 
     * Istio Workload Dashboard
-
-In case of DNS issue you can use the services exposed on ports:
-
-```bash
-# IP ADDRESS OF CLUSTER INGRESS
-kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
-```
-
-* Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`
-* Prometheus: `http://<IP ADDRESS OF CLUSTER INGRESS>:15030`
-* Grafana: `http://<IP ADDRESS OF CLUSTER INGRESS>:15031`
-* Tracing: `http://<IP ADDRESS OF CLUSTER INGRESS>:15032`
-
-Open the Bookinfo site in your browser [http://mylabs.dev/productpage](http://mylabs.dev/productpage)
-and refresh the page several times - you should see different versions
-of reviews shown in productpage, presented in a **round robin style**
-(red stars, black stars, no stars), since we haven't yet used Istio to control
-the version routing.
-
-![Bookinfo v1, v3, v2](./bookinfo_v1_v3_v2.gif "Bookinfo v1, v3, v2")
-
-Check the flows in [Kiali](https://www.kiali.io/) graph:
-
-![Istio Graph](./istio_kiali_graph.gif "Istio Graph")
 
 ![Istio](../.vuepress/public/istio.svg "Istio")

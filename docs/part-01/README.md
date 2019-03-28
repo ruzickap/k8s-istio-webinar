@@ -124,7 +124,13 @@ git clone https://github.com/ruzickap/k8s-istio-webinar
 cd k8s-istio-webinar
 ```
 
-Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS:
+![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/e2c437de2815dd0b69ada81895ea5d5144362c21/static/images/introduction/eks-product-page.png
+"EKS")
+
+Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS by using [eksctl](https://eksctl.io/).
+It's a tool from [Weaveworks](https://weave.works/) based on official
+AWS CloudFormation templates, and will use it to launch and configure our
+EKS cluster and nodes.
 
 ```bash
 eksctl create cluster \
@@ -137,6 +143,12 @@ eksctl create cluster \
 --node-labels "Application=Istio_Webinar,Owner=${USER},Environment=Webinar,Division=Services" \
 --kubeconfig=kubeconfig.conf
 ```
+
+![EKS Architecture](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-architecture.svg?sanitize=true
+"EKS Architecture")
+
+![EKS High Level](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-high-level.svg?sanitize=true
+"EKS High Level")
 
 Check if the new EKS cluster is available:
 

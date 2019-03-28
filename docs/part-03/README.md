@@ -69,6 +69,9 @@ export HOSTED_ZONE_ID=$(aws route53 list-hosted-zones --query "HostedZones[?Name
 envsubst < ../../files/aws_route53-dns_change.json | aws route53 change-resource-record-sets --hosted-zone-id ${HOSTED_ZONE_ID} --change-batch=file:///dev/stdin
 ```
 
+![Architecture](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/crystal.svg?sanitize=true
+"Architecture")
+
 ## Create TLS certificate using Let's Encrypt
 
 Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager.

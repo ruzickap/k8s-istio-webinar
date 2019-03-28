@@ -36,13 +36,15 @@ clear
 
 # mkdir /var/tmp/test && cd /var/tmp/test
 # docker run -it -rm -e USER="$USER" -v /home/$USER/.ssh:/root/.ssh:ro -v $PWD:/mnt ubuntu
+# git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 
 # export LETSENCRYPT_ENVIRONMENT="staging"
 # export MY_DOMAIN="mylabs.dev"
 # export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=$(awk -F\" "/AccessKeyId/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})
 # export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})
+# echo "${LETSENCRYPT_ENVIRONMENT} | ${MY_DOMAIN} | ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID} | ${EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY}"
+# eksctl utils write-kubeconfig --kubeconfig kubeconfig.conf --name=${USER}-k8s-istio-webinar
 
-# git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 # ./run-k8s-istio-webinar.sh
 
 if [ -z ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID+x} ] || [ -z ${EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY+x} ]; then

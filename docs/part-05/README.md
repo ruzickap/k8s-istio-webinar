@@ -2,7 +2,7 @@
 
 [https://istio.io/docs/tasks/traffic-management/request-routing/](https://istio.io/docs/tasks/traffic-management/request-routing/)
 
-This task shows you how to route requests dynamically to multiple versions
+This part shows you how to route requests dynamically to multiple versions
 of a microservice.
 
 ## Apply a virtual service

@@ -31,7 +31,7 @@ apt update -qq && \
 DEBIAN_FRONTEND=noninteractive apt-get install -y -qq awscli curl gettext-base git openssh-client siege sudo > /dev/null
 ```
 
-Install `kubernetes-client` package:
+Install [kubectl](https://github.com/kubernetes/kubectl) binary:
 
 ```bash
 if [ ! -x /usr/local/bin/kubectl ]; then
@@ -72,9 +72,9 @@ Create DNS zone:
 aws route53 create-hosted-zone --name ${MY_DOMAIN} --caller-reference ${MY_DOMAIN}
 ```
 
-Use your domain registrar to change the nameservers for your zone (mylabs.dev)
-to use Amazon Route 53 nameservers. Here are the Route 53 nameservers you
-should use:
+Use your domain registrar to change the nameservers for your zone (for example
+`mylabs.dev`) to use the Amazon Route 53 nameservers. Here is the way how you
+can find out the the Route 53 nameservers:
 
 ```bash
 aws route53 get-hosted-zone \
@@ -82,7 +82,9 @@ aws route53 get-hosted-zone \
   --query "DelegationSet.NameServers"
 ```
 
-Create policy allowing the cert-manager to change Route 53 settings:
+Create policy allowing the cert-manager to change Route 53 settings. This will
+allow cert-manager to generate wildcard SSL certificates by Let's Encrypt
+certificate authority.
 
 ```bash
 aws iam create-policy \
@@ -111,13 +113,13 @@ definition for `cert-manager`.
 ![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/3-service-animated.gif
 "EKS")
 
-Generate ssh keys if not exists:
+Generate SSH keys if not exists:
 
 ```bash
 test -f $HOME/.ssh/id_rsa || ( install -m 0700 -d $HOME/.ssh && ssh-keygen -b 2048 -t rsa -f $HOME/.ssh/id_rsa -q -N "" )
 ```
 
-Clone this git repository:
+Clone the Git repository:
 
 ```bash
 git clone https://github.com/ruzickap/k8s-istio-webinar
@@ -129,7 +131,7 @@ cd k8s-istio-webinar
 
 Create [Amazon EKS](https://aws.amazon.com/eks/) in AWS by using [eksctl](https://eksctl.io/).
 It's a tool from [Weaveworks](https://weave.works/) based on official
-AWS CloudFormation templates, and will use it to launch and configure our
+AWS CloudFormation templates which will be used to launch and configure our
 EKS cluster and nodes.
 
 ```bash
@@ -194,7 +196,7 @@ ip-192-168-69-19.eu-central-1.compute.internal    Ready    <none>   4m    v1.11.
 ![EKS High Level](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-high-level.svg?sanitize=true
 "EKS High Level")
 
-Both worker nodes should be accessible via ssh:
+Both worker nodes should be accessible via SSH:
 
 ```bash
 for EXTERNAL_IP in $(kubectl get nodes --output=jsonpath="{.items[*].status.addresses[?(@.type==\"ExternalIP\")].address}"); do
@@ -213,4 +215,4 @@ Output:
 ```
 
 At the end of the output you should see 2 IP addresses which
-should be accessible by ssh using your public key `~/.ssh/id_rsa.pub`.
+should be accessible by SSH using your public key `~/.ssh/id_rsa.pub`.

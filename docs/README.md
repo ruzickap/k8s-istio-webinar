@@ -2,13 +2,6 @@
 
 [![Build Status](https://travis-ci.com/ruzickap/k8s-istio-webinar.svg?branch=master)](https://travis-ci.com/ruzickap/k8s-istio-webinar)
 
-Webinar pages:
-
-* Web Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
-* GitHub: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
-* Presentation: [https://slides.com/ruzickap/k8s-istio-webinar](https://slides.com/ruzickap/k8s-istio-webinar)
-* Asciinema webinar screencast: [https://asciinema.org/a/237567](https://asciinema.org/a/237567?autoplay=1)
-
 [Istio](https://istio.io/) is an open platform to connect, secure, control
 and observe microservices, also known as a service mesh, on cloud platforms
 such as Kubernetes.
@@ -20,7 +13,9 @@ enforce access policies, verify service identity, secure service communication,
 and observe what exactly is going on with your services.
 
 * GitHub repository: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
-* GitHub Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
+* Web Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
+* Presentation: [https://slides.com/ruzickap/k8s-istio-webinar](https://slides.com/ruzickap/k8s-istio-webinar)
+* Asciinema webinar screencast: [https://asciinema.org/a/237567](https://asciinema.org/a/237567?autoplay=1)
 
 ## Requirements
 
@@ -34,12 +29,11 @@ and observe what exactly is going on with your services.
 ## Objectives
 
 * Download and install Istio in your cluster
-* Deploy the Guestbook sample app
+* Deploy the Bookinfo application
 * Use metrics, logging, and tracing to observe services
 * Set up the Istio Ingress Gateway
 * Perform simple traffic management, such as A/B tests and canary deployments
 * Secure your service mesh
-* Enforce policies for your microservices
 
 ## Webinar
 
@@ -50,16 +44,7 @@ and observe what exactly is going on with your services.
 * [Part 05 - Istio - Configuring Request Routing](part-05/README.md)
 * [Part 06 - Istio - Injecting an HTTP delay fault](part-06/README.md)
 * [Part 07 - Istio - Weight-based routing](part-07/README.md)
-
-::: tip
-In case you turned off / restart your computer please verify you
-have the `KUBECONFIG` variable set properly:
-:::
-
-```bash
-export KUBECONFIG=${KUBECONFIG:-$PWD/kubeconfig.conf}
-kubectl get nodes -o wide
-```
+* [Part 08 - Istio - Cleanup](part-08/README.md)
 
 ## Links
 

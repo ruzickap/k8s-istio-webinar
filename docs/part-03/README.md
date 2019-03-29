@@ -11,7 +11,7 @@ Either download Istio directly from [https://github.com/istio/istio/releases](ht
 or get the latest version by using curl:
 
 ```bash
-export ISTIO_VERSION="1.1.0"
+export ISTIO_VERSION="1.1.1"
 test -d tmp || mkdir tmp
 cd tmp
 curl -sL https://git.io/getLatestIstio | sh -
@@ -86,7 +86,7 @@ envsubst < ../../files/aws_route53-dns_change.json | aws route53 change-resource
 ![Architecture](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/crystal.svg?sanitize=true
 "Architecture")
 
-## Create TLS certificate using Let's Encrypt
+## Create SSL certificate using Let's Encrypt
 
 Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager.
 It will allow Let's encrypt to generate certificate. Route53 (DNS) method of
@@ -97,6 +97,11 @@ certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/w
 export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)
 envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml | kubectl apply -f -
 ```
+
+![ACME DNS Challenge](https://b3n.org/wp-content/uploads/2016/09/acme_letsencrypt_dns-01-challenge.png
+"ACME DNS Challenge")
+
+([https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/](https://b3n.org/intranet-ssl-certificates-using-lets-encrypt-dns-01/))
 
 Let `istio-ingressgateway` to enable TLS certificates delivery via [SDS](https://www.envoyproxy.io/docs/envoy/latest/configuration/secret):
 

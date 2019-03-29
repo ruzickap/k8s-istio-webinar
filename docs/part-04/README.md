@@ -245,10 +245,7 @@ destinationrule.networking.istio.io/reviews       reviews       8s
 ![Gateway -> VirtualService -> DestinationRule](https://raw.githubusercontent.com/istio/istio.io/92bc65af57592294102e1bc2cb13b333b44a73e0/content/blog/2018/v1alpha3-routing/virtualservices-destrules.svg?sanitize=true
 "Gateway -> VirtualService -> DestinationRule")
 
-Check the SSL certificate (or check the certificate transparency log
-[https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev)):
-
-![crt.sh Certificate](./crt_sh.png "crt.sh Certificate")
+Check the SSL certificate:
 
 ```bash
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
@@ -298,11 +295,18 @@ Certificate:
 ...
 ```
 
+You can see it in the certificate transparency log: [https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev))
+
+![crt.sh Certificate](./crt_sh.png "crt.sh Certificate")
+
+SSL Certificate in Kiali [https://kiali.mylabs.dev](https://kiali.mylabs.dev)
+web page:
+
 ![Kiali SSL Certificate displayed in browser](./kiali_ssl_certificate.png
 "Kiali SSL Certificate displayed in browser")
 
 You can also use the [cert-manager](https://github.com/jetstack/cert-manager)
-directly to see the cert status:
+directly to see the status of the certificate:
 
 ```bash
 kubectl describe certificates ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n istio-system
@@ -373,7 +377,7 @@ Output:
 200
 ```
 
-Generate some traffic for next 5 minutes to gather some data:
+Generate some traffic for next 5 minutes to gather some data for monitoring:
 
 ```bash
 siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &> /dev/null &

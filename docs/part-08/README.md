@@ -3,7 +3,7 @@
 ![Cleanup](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/cleanup.svg?sanitize=true
 "Cleanup")
 
----
+-----
 
 Remove the Bookinfo application and clean it up (delete the routing rules
 and terminate the application pods):
@@ -64,7 +64,7 @@ namespace/default labeled
 namespace "istio-system" deleted
 ```
 
-Clean AWS
+Clean AWS:
 
 ```bash
 # aws route53 delete-hosted-zone --id $(aws route53 list-hosted-zones --query "HostedZones[?Name==\`${MY_DOMAIN}.\`].Id" --output text)
@@ -74,7 +74,7 @@ aws iam delete-access-key --user-name ${USER}-eks-cert-manager-route53 --access-
 aws iam delete-user --user-name ${USER}-eks-cert-manager-route53
 ```
 
-Remove EKS cluster
+Remove EKS cluster:
 
 ```bash
 eksctl delete cluster --name=${USER}-k8s-istio-webinar --wait

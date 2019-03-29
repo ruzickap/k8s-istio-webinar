@@ -35,7 +35,8 @@ clear
 ### Please run these commands before running the script
 
 # mkdir /var/tmp/test && cd /var/tmp/test
-# docker run -it -rm -e USER="$USER" -v /home/$USER/.ssh:/root/.ssh:ro -v $PWD:/mnt ubuntu
+# docker run -it -rm -e USER="$USER" -v $HOME/.ssh:/root/.ssh:ro -v $PWD:/mnt ubuntu
+# echo $(hostname -I) $(hostname) >> /etc/hosts
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 
 # export LETSENCRYPT_ENVIRONMENT="staging"
@@ -52,7 +53,7 @@ if [ -z ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID+x} ] || [ -z ${EKS_CERT_MAN
   exit 1
 fi
 
-sed '/^## Prepare the local working environment/,/^Check if the new EKS cluster is available:/d' docs/part-{01..09}/README.md | \
+sed '/^## Prepare the local working environment/,/^Check if the new EKS cluster is available:/d' docs/part-{01..08}/README.md | \
 sed -n '/^```bash$/,/^```$/p;/^-----$/p'  | \
 sed -e 's/^-----$/\
 p  ""\

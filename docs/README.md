@@ -11,6 +11,7 @@ enforce access policies, verify service identity, secure service communication,
 and observe what exactly is going on with your services.
 
 * GitHub repository: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
+* GitHub Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
 
 ## Requirements
 

@@ -108,7 +108,7 @@ definition for `cert-manager`.
 
 ## Create Amazon EKS
 
-![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/master/static/images/3-service-animated.gif
+![EKS](https://raw.githubusercontent.com/aws-samples/eks-workshop/65b766c494a5b4f5420b2912d8373c4957163541/static/images/3-service-animated.gif
 "EKS")
 
 Generate ssh keys if not exists:

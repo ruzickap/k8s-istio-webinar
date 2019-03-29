@@ -346,7 +346,7 @@ Events:
 Confirm the app is running:
 
 ```bash
-curl -o /dev/null -s -w "%{http_code}\n" http://${MY_DOMAIN}/productpage
+curl -o /dev/null -s -w "%{http_code}" http://${MY_DOMAIN}/productpage; echo
 ```
 
 Output:
@@ -358,14 +358,14 @@ Output:
 Generate some traffic for next 5 minutes to gather some data:
 
 ```bash
-siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &
+siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &> /dev/null &
 ```
 
 In case of DNS issue you can use the services exposed on ports directly from
 loadbalancer:
 
 ```bash
-kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
+kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"; echo
 ```
 
 * Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`

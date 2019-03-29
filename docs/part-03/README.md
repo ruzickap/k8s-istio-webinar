@@ -17,6 +17,20 @@ cd tmp
 curl -sL https://git.io/getLatestIstio | sh -
 ```
 
+Output:
+
+```shell
+Downloading istio-1.1.0 from https://github.com/istio/istio/releases/download/1.1.0/istio-1.1.0-linux.tar.gz ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   614    0   614    0     0    884      0 --:--:-- --:--:-- --:--:--   883
+100 15.0M  100 15.0M    0     0  5252k      0  0:00:02  0:00:02 --:--:-- 12.4M
+Downloaded into istio-1.1.0:
+LICENSE  README.md  bin  install  istio.VERSION  samples  tools
+Add /mnt/k8s-istio-webinar/k8s-istio-webinar/tmp/istio-1.1.0/bin to your path; e.g copy paste in your shell and/or ~/.profile:
+export PATH="$PATH:/mnt/k8s-istio-webinar/k8s-istio-webinar/tmp/istio-1.1.0/bin"
+```
+
 Change the directory to the Istio installation files location:
 
 ```bash
@@ -110,10 +124,10 @@ Output:
 
 ```shell
 NAME           STATUS   AGE   ISTIO-INJECTION
-default        Active   11m   enabled
-istio-system   Active   1m
-kube-public    Active   11m
-kube-system    Active   11m
+default        Active   19m   enabled
+istio-system   Active   7m
+kube-public    Active   19m
+kube-system    Active   19m
 ```
 
 See the Istio components:
@@ -125,67 +139,73 @@ kubectl get --namespace=istio-system svc,deployment,pods,job,horizontalpodautosc
 Output:
 
 ```shell
-NAME                             TYPE           CLUSTER-IP       EXTERNAL-IP                                                                 PORT(S)                                                                                                                                      AGE
-service/grafana                  ClusterIP      10.100.5.117     <none>                                                                      3000/TCP                                                                                                                                     2m
-service/istio-citadel            ClusterIP      10.100.225.159   <none>                                                                      8060/TCP,15014/TCP                                                                                                                           2m
-service/istio-galley             ClusterIP      10.100.234.127   <none>                                                                      443/TCP,15014/TCP,9901/TCP                                                                                                                   2m
-service/istio-ingressgateway     LoadBalancer   10.100.35.236    a7e9028484bf711e9816e0a4fad06eb6-288194046.eu-central-1.elb.amazonaws.com   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:32297/TCP,15030:30518/TCP,15031:30145/TCP,15032:32031/TCP,15443:30311/TCP,15020:31713/TCP   2m
-service/istio-pilot              ClusterIP      10.100.2.74      <none>                                                                      15010/TCP,15011/TCP,8080/TCP,15014/TCP                                                                                                       2m
-service/istio-policy             ClusterIP      10.100.233.18    <none>                                                                      9091/TCP,15004/TCP,15014/TCP                                                                                                                 2m
-service/istio-sidecar-injector   ClusterIP      10.100.92.215    <none>                                                                      443/TCP                                                                                                                                      2m
-service/istio-telemetry          ClusterIP      10.100.252.68    <none>                                                                      9091/TCP,15004/TCP,15014/TCP,42422/TCP                                                                                                       2m
-service/jaeger-agent             ClusterIP      None             <none>                                                                      5775/UDP,6831/UDP,6832/UDP                                                                                                                   2m
-service/jaeger-collector         ClusterIP      10.100.243.102   <none>                                                                      14267/TCP,14268/TCP                                                                                                                          2m
-service/jaeger-query             ClusterIP      10.100.127.65    <none>                                                                      16686/TCP                                                                                                                                    2m
-service/kiali                    ClusterIP      10.100.117.19    <none>                                                                      20001/TCP                                                                                                                                    2m
-service/prometheus               ClusterIP      10.100.48.137    <none>                                                                      9090/TCP                                                                                                                                     2m
-service/servicegraph             ClusterIP      10.100.22.167    <none>                                                                      8088/TCP                                                                                                                                     2m
-service/tracing                  ClusterIP      10.100.222.42    <none>                                                                      80/TCP                                                                                                                                       2m
-service/zipkin                   ClusterIP      10.100.163.133   <none>                                                                      9411/TCP                                                                                                                                     2m
+NAME                             TYPE           CLUSTER-IP       EXTERNAL-IP                                                                  PORT(S)                                                                                                                                      AGE
+service/grafana                  ClusterIP      10.100.84.93     <none>                                                                       3000/TCP                                                                                                                                     7m
+service/istio-citadel            ClusterIP      10.100.203.5     <none>                                                                       8060/TCP,15014/TCP                                                                                                                           7m
+service/istio-galley             ClusterIP      10.100.224.231   <none>                                                                       443/TCP,15014/TCP,9901/TCP                                                                                                                   7m
+service/istio-ingressgateway     LoadBalancer   10.100.241.162   abd0be556520611e9ac0602dc9c152bf-2144127322.eu-central-1.elb.amazonaws.com   80:31380/TCP,443:31390/TCP,31400:31400/TCP,15029:31705/TCP,15030:30101/TCP,15031:30032/TCP,15032:32493/TCP,15443:31895/TCP,15020:31909/TCP   7m
+service/istio-pilot              ClusterIP      10.100.68.4      <none>                                                                       15010/TCP,15011/TCP,8080/TCP,15014/TCP                                                                                                       7m
+service/istio-policy             ClusterIP      10.100.24.13     <none>                                                                       9091/TCP,15004/TCP,15014/TCP                                                                                                                 7m
+service/istio-sidecar-injector   ClusterIP      10.100.252.24    <none>                                                                       443/TCP                                                                                                                                      7m
+service/istio-telemetry          ClusterIP      10.100.103.164   <none>                                                                       9091/TCP,15004/TCP,15014/TCP,42422/TCP                                                                                                       7m
+service/jaeger-agent             ClusterIP      None             <none>                                                                       5775/UDP,6831/UDP,6832/UDP                                                                                                                   7m
+service/jaeger-collector         ClusterIP      10.100.32.192    <none>                                                                       14267/TCP,14268/TCP                                                                                                                          7m
+service/jaeger-query             ClusterIP      10.100.196.113   <none>                                                                       16686/TCP                                                                                                                                    7m
+service/kiali                    ClusterIP      10.100.66.131    <none>                                                                       20001/TCP                                                                                                                                    7m
+service/prometheus               ClusterIP      10.100.246.253   <none>                                                                       9090/TCP                                                                                                                                     7m
+service/servicegraph             ClusterIP      10.100.163.157   <none>                                                                       8088/TCP                                                                                                                                     7m
+service/tracing                  ClusterIP      10.100.90.197    <none>                                                                       80/TCP                                                                                                                                       7m
+service/zipkin                   ClusterIP      10.100.8.55      <none>                                                                       9411/TCP                                                                                                                                     7m
 
 NAME                                           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/grafana                  1         1         1            1           2m
-deployment.extensions/istio-citadel            1         1         1            1           2m
-deployment.extensions/istio-galley             1         1         1            1           2m
-deployment.extensions/istio-ingressgateway     1         1         1            1           2m
-deployment.extensions/istio-pilot              1         1         1            1           2m
-deployment.extensions/istio-policy             1         1         1            1           2m
-deployment.extensions/istio-sidecar-injector   1         1         1            1           2m
-deployment.extensions/istio-telemetry          1         1         1            1           2m
-deployment.extensions/istio-tracing            1         1         1            1           2m
-deployment.extensions/kiali                    1         1         1            1           2m
-deployment.extensions/prometheus               1         1         1            1           2m
-deployment.extensions/servicegraph             1         1         1            1           2m
+deployment.extensions/certmanager              1         1         1            1           7m
+deployment.extensions/grafana                  1         1         1            1           7m
+deployment.extensions/istio-citadel            1         1         1            1           7m
+deployment.extensions/istio-galley             1         1         1            1           7m
+deployment.extensions/istio-ingressgateway     1         1         1            1           7m
+deployment.extensions/istio-pilot              1         1         1            1           7m
+deployment.extensions/istio-policy             1         1         1            1           7m
+deployment.extensions/istio-sidecar-injector   1         1         1            1           7m
+deployment.extensions/istio-telemetry          1         1         1            1           7m
+deployment.extensions/istio-tracing            1         1         1            1           7m
+deployment.extensions/kiali                    1         1         1            1           7m
+deployment.extensions/prometheus               1         1         1            1           7m
+deployment.extensions/servicegraph             1         1         1            1           7m
 
 NAME                                          READY   STATUS      RESTARTS   AGE
-pod/grafana-7b46bf6b7c-2zqqw                  1/1     Running     0          2m
-pod/istio-citadel-75fdb679db-qx2rt            1/1     Running     0          2m
-pod/istio-galley-c864b5c86-7x4f8              1/1     Running     0          2m
-pod/istio-ingressgateway-668676fbdb-6fhkw     1/1     Running     0          2m
-pod/istio-init-crd-10-t97s4                   0/1     Completed   0          2m
-pod/istio-init-crd-11-fb5qg                   0/1     Completed   0          2m
-pod/istio-pilot-f4c98cfbf-h28dt               2/2     Running     0          2m
-pod/istio-policy-6cbbd844dd-72q5f             2/2     Running     2          2m
-pod/istio-sidecar-injector-7b47cb4689-xtpm4   1/1     Running     0          2m
-pod/istio-telemetry-ccc4df498-p2vcq           2/2     Running     2          2m
-pod/istio-tracing-75dd89b8b4-pv5pz            1/1     Running     0          2m
-pod/kiali-7787748c7d-l7mdd                    1/1     Running     0          2m
-pod/prometheus-89bc5668c-wgl47                1/1     Running     0          2m
-pod/servicegraph-5d4b49848-7mqbp              1/1     Running     0          2m
+pod/certmanager-7478689867-6n8r7              1/1     Running     0          7m
+pod/grafana-7b46bf6b7c-w7ms2                  1/1     Running     0          7m
+pod/istio-citadel-75fdb679db-v8bqh            1/1     Running     0          7m
+pod/istio-galley-c864b5c86-8xfpm              1/1     Running     0          7m
+pod/istio-ingressgateway-6cb65d86cb-5ptgp     2/2     Running     0          7m
+pod/istio-init-crd-10-stcw2                   0/1     Completed   0          7m
+pod/istio-init-crd-11-fgdh9                   0/1     Completed   0          7m
+pod/istio-init-crd-certmanager-10-rhmv9       0/1     Completed   0          7m
+pod/istio-init-crd-certmanager-11-dv24d       0/1     Completed   0          7m
+pod/istio-pilot-f4c98cfbf-pwp45               2/2     Running     0          7m
+pod/istio-policy-6cbbd844dd-4dzbx             2/2     Running     2          7m
+pod/istio-sidecar-injector-7b47cb4689-5x7ph   1/1     Running     0          7m
+pod/istio-telemetry-ccc4df498-w77hk           2/2     Running     2          7m
+pod/istio-tracing-75dd89b8b4-frg8w            1/1     Running     0          7m
+pod/kiali-7787748c7d-lb454                    1/1     Running     0          7m
+pod/prometheus-89bc5668c-54pdj                1/1     Running     0          7m
+pod/servicegraph-5d4b49848-cscbp              1/1     Running     1          7m
 
-NAME                          DESIRED   SUCCESSFUL   AGE
-job.batch/istio-init-crd-10   1         1            2m
-job.batch/istio-init-crd-11   1         1            2m
+NAME                                      DESIRED   SUCCESSFUL   AGE
+job.batch/istio-init-crd-10               1         1            7m
+job.batch/istio-init-crd-11               1         1            7m
+job.batch/istio-init-crd-certmanager-10   1         1            7m
+job.batch/istio-init-crd-certmanager-11   1         1            7m
 
 NAME                                                       REFERENCE                         TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
-horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         5         1          2m
-horizontalpodautoscaler.autoscaling/istio-pilot            Deployment/istio-pilot            <unknown>/80%   1         5         1          2m
-horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           <unknown>/80%   1         5         1          2m
-horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        <unknown>/80%   1         5         1          2m
+horizontalpodautoscaler.autoscaling/istio-ingressgateway   Deployment/istio-ingressgateway   <unknown>/80%   1         5         1          7m
+horizontalpodautoscaler.autoscaling/istio-pilot            Deployment/istio-pilot            <unknown>/80%   1         5         1          7m
+horizontalpodautoscaler.autoscaling/istio-policy           Deployment/istio-policy           <unknown>/80%   1         5         1          7m
+horizontalpodautoscaler.autoscaling/istio-telemetry        Deployment/istio-telemetry        <unknown>/80%   1         5         1          7m
 
 NAME                                                  HOST                                             AGE
-destinationrule.networking.istio.io/istio-policy      istio-policy.istio-system.svc.cluster.local      2m
-destinationrule.networking.istio.io/istio-telemetry   istio-telemetry.istio-system.svc.cluster.local   2m
+destinationrule.networking.istio.io/istio-policy      istio-policy.istio-system.svc.cluster.local      7m
+destinationrule.networking.istio.io/istio-telemetry   istio-telemetry.istio-system.svc.cluster.local   7m
 ```
 
 Configure the Istio services ([Jaeger](https://www.jaegertracing.io/),

@@ -148,27 +148,27 @@ Output:
 
 ```text
 [ℹ]  using region eu-central-1
-[ℹ]  setting availability zones to [eu-central-1b eu-central-1a eu-central-1c]
-[ℹ]  subnets for eu-central-1b - public:192.168.0.0/19 private:192.168.96.0/19
-[ℹ]  subnets for eu-central-1a - public:192.168.32.0/19 private:192.168.128.0/19
+[ℹ]  setting availability zones to [eu-central-1a eu-central-1b eu-central-1c]
+[ℹ]  subnets for eu-central-1a - public:192.168.0.0/19 private:192.168.96.0/19
+[ℹ]  subnets for eu-central-1b - public:192.168.32.0/19 private:192.168.128.0/19
 [ℹ]  subnets for eu-central-1c - public:192.168.64.0/19 private:192.168.160.0/19
-[ℹ]  nodegroup "ng-c9dcf513" will use "ami-07c77043ca4cb9123" [AmazonLinux2/1.11]
-[ℹ]  importing SSH public key "/home/pruzicka/.ssh/id_rsa.pub" as "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-c9dcf513-a3:84:e4:0d:af:5f:c8:40:da:71:68:8a:74:c7:ba:16"
+[ℹ]  nodegroup "ng-5be027b5" will use "ami-07c77043ca4cb9123" [AmazonLinux2/1.11]
+[ℹ]  importing SSH public key "/root/.ssh/id_rsa.pub" as "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-5be027b5-f8:37:5c:d1:62:35:1e:21:66:a1:8e:3d:19:d0:8f:86"
 [ℹ]  creating EKS cluster "pruzicka-k8s-istio-webinar" in "eu-central-1" region
 [ℹ]  will create 2 separate CloudFormation stacks for cluster itself and the initial nodegroup
 [ℹ]  if you encounter any issues, check CloudFormation console or try 'eksctl utils describe-stacks --region=eu-central-1 --name=pruzicka-k8s-istio-webinar'
 [ℹ]  building cluster stack "eksctl-pruzicka-k8s-istio-webinar-cluster"
-[ℹ]  creating nodegroup stack "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-c9dcf513"
-[ℹ]  --nodes-min=2 was set automatically for nodegroup ng-c9dcf513
-[ℹ]  --nodes-max=2 was set automatically for nodegroup ng-c9dcf513
+[ℹ]  creating nodegroup stack "eksctl-pruzicka-k8s-istio-webinar-nodegroup-ng-5be027b5"
+[ℹ]  --nodes-min=2 was set automatically for nodegroup ng-5be027b5
+[ℹ]  --nodes-max=2 was set automatically for nodegroup ng-5be027b5
 [✔]  all EKS cluster resource for "pruzicka-k8s-istio-webinar" had been created
 [✔]  saved kubeconfig as "kubeconfig.conf"
-[ℹ]  adding role "arn:aws:iam::822044714040:role/eksctl-pruzicka-k8s-istio-webinar-NodeInstanceRole-14J850V6AXSPO" to auth ConfigMap
-[ℹ]  nodegroup "ng-c9dcf513" has 0 node(s)
-[ℹ]  waiting for at least 2 node(s) to become ready in "ng-c9dcf513"
-[ℹ]  nodegroup "ng-c9dcf513" has 2 node(s)
-[ℹ]  node "ip-192-168-58-163.eu-central-1.compute.internal" is ready
-[ℹ]  node "ip-192-168-88-222.eu-central-1.compute.internal" is ready
+[ℹ]  adding role "arn:aws:iam::822044714040:role/eksctl-pruzicka-k8s-istio-webinar-NodeInstanceRole-DVZ6BH8KDQ1K" to auth ConfigMap
+[ℹ]  nodegroup "ng-5be027b5" has 0 node(s)
+[ℹ]  waiting for at least 2 node(s) to become ready in "ng-5be027b5"
+[ℹ]  nodegroup "ng-5be027b5" has 2 node(s)
+[ℹ]  node "ip-192-168-26-217.eu-central-1.compute.internal" is ready
+[ℹ]  node "ip-192-168-69-19.eu-central-1.compute.internal" is ready
 [ℹ]  kubectl command should work with "kubeconfig.conf", try 'kubectl --kubeconfig=kubeconfig.conf get nodes'
 [✔]  EKS cluster "pruzicka-k8s-istio-webinar" in "eu-central-1" region is ready
 ```
@@ -186,10 +186,9 @@ kubectl get nodes -o wide
 Output:
 
 ```shell
-NAME                                          STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP      OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
-NAME                                              STATUS   ROLES    AGE   VERSION   INTERNAL-IP      EXTERNAL-IP      OS-IMAGE         KERNEL-VERSION               CONTAINER-RUNTIME
-ip-192-168-11-227.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.11.227   18.194.185.132   Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
-ip-192-168-42-115.eu-central-1.compute.internal   Ready    <none>   3m    v1.11.5   192.168.42.115   18.195.182.75    Amazon Linux 2   4.14.97-90.72.amzn2.x86_64   docker://18.6.1
+NAME                                              STATUS   ROLES    AGE   VERSION   INTERNAL-IP      EXTERNAL-IP     OS-IMAGE         KERNEL-VERSION                CONTAINER-RUNTIME
+ip-192-168-26-217.eu-central-1.compute.internal   Ready    <none>   4m    v1.11.9   192.168.26.217   18.194.16.192   Amazon Linux 2   4.14.104-95.84.amzn2.x86_64   docker://18.6.1
+ip-192-168-69-19.eu-central-1.compute.internal    Ready    <none>   4m    v1.11.9   192.168.69.19    18.184.88.98    Amazon Linux 2   4.14.104-95.84.amzn2.x86_64   docker://18.6.1
 ```
 
 ![EKS High Level](https://raw.githubusercontent.com/aws-samples/eks-workshop/3e7da75de884d9efeec8e8ba21161169d3e80da7/static/images/introduction/eks-high-level.svg?sanitize=true
@@ -207,11 +206,11 @@ done
 Output:
 
 ```shell
-*** 18.194.185.132
- 16:35:21 up 3 min,  0 users,  load average: 0.39, 0.37, 0.19
-*** 18.195.182.75
- 16:35:22 up 3 min,  0 users,  load average: 0.16, 0.32, 0.17
- ```
+*** 18.194.16.192
+ 09:39:19 up 5 min,  0 users,  load average: 0.06, 0.17, 0.08
+*** 18.184.88.98
+ 09:39:20 up 5 min,  0 users,  load average: 0.18, 0.12, 0.05
+```
 
 At the end of the output you should see 2 IP addresses which
 should be accessible by ssh using your public key `~/.ssh/id_rsa.pub`.

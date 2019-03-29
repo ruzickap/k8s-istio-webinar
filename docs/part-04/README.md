@@ -48,27 +48,27 @@ Output:
 
 ```shell
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/details       ClusterIP   10.100.115.146   <none>        9080/TCP   1m    app=details
-service/kubernetes    ClusterIP   10.100.0.1       <none>        443/TCP    15m   <none>
-service/productpage   ClusterIP   10.100.32.226    <none>        9080/TCP   1m    app=productpage
-service/ratings       ClusterIP   10.100.174.231   <none>        9080/TCP   1m    app=ratings
-service/reviews       ClusterIP   10.100.249.195   <none>        9080/TCP   1m    app=reviews
+service/details       ClusterIP   10.100.84.225    <none>        9080/TCP   2m    app=details
+service/kubernetes    ClusterIP   10.100.0.1       <none>        443/TCP    21m   <none>
+service/productpage   ClusterIP   10.100.111.89    <none>        9080/TCP   2m    app=productpage
+service/ratings       ClusterIP   10.100.217.110   <none>        9080/TCP   2m    app=ratings
+service/reviews       ClusterIP   10.100.83.162    <none>        9080/TCP   2m    app=reviews
 
 NAME                                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS    IMAGES                                          SELECTOR
-deployment.extensions/details-v1       1         1         1            1           1m    details       istio/examples-bookinfo-details-v1:1.10.1       app=details,version=v1
-deployment.extensions/productpage-v1   1         1         1            1           1m    productpage   istio/examples-bookinfo-productpage-v1:1.10.1   app=productpage,version=v1
-deployment.extensions/ratings-v1       1         1         1            1           1m    ratings       istio/examples-bookinfo-ratings-v1:1.10.1       app=ratings,version=v1
-deployment.extensions/reviews-v1       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v1:1.10.1       app=reviews,version=v1
-deployment.extensions/reviews-v2       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v2:1.10.1       app=reviews,version=v2
-deployment.extensions/reviews-v3       1         1         1            1           1m    reviews       istio/examples-bookinfo-reviews-v3:1.10.1       app=reviews,version=v3
+deployment.extensions/details-v1       1         1         1            1           2m    details       istio/examples-bookinfo-details-v1:1.10.1       app=details,version=v1
+deployment.extensions/productpage-v1   1         1         1            1           2m    productpage   istio/examples-bookinfo-productpage-v1:1.10.1   app=productpage,version=v1
+deployment.extensions/ratings-v1       1         1         1            1           2m    ratings       istio/examples-bookinfo-ratings-v1:1.10.1       app=ratings,version=v1
+deployment.extensions/reviews-v1       1         1         1            1           2m    reviews       istio/examples-bookinfo-reviews-v1:1.10.1       app=reviews,version=v1
+deployment.extensions/reviews-v2       1         1         1            1           2m    reviews       istio/examples-bookinfo-reviews-v2:1.10.1       app=reviews,version=v2
+deployment.extensions/reviews-v3       1         1         1            1           2m    reviews       istio/examples-bookinfo-reviews-v3:1.10.1       app=reviews,version=v3
 
 NAME                                  READY   STATUS    RESTARTS   AGE   IP               NODE                                              NOMINATED NODE
-pod/details-v1-68868454f5-fgckz       2/2     Running   0          1m    192.168.0.110    ip-192-168-11-227.eu-central-1.compute.internal   <none>
-pod/productpage-v1-5cb458d74f-vr6f2   2/2     Running   0          1m    192.168.44.120   ip-192-168-42-115.eu-central-1.compute.internal   <none>
-pod/ratings-v1-76f4c9765f-vx54k       2/2     Running   0          1m    192.168.30.241   ip-192-168-11-227.eu-central-1.compute.internal   <none>
-pod/reviews-v1-56f6855586-gbfrm       2/2     Running   0          1m    192.168.25.4     ip-192-168-11-227.eu-central-1.compute.internal   <none>
-pod/reviews-v2-65c9df47f8-258sx       2/2     Running   0          1m    192.168.62.144   ip-192-168-42-115.eu-central-1.compute.internal   <none>
-pod/reviews-v3-6cf47594fd-ncgm5       2/2     Running   0          1m    192.168.50.202   ip-192-168-42-115.eu-central-1.compute.internal   <none>
+pod/details-v1-68868454f5-sphh7       2/2     Running   0          2m    192.168.13.128   ip-192-168-26-217.eu-central-1.compute.internal   <none>
+pod/productpage-v1-5cb458d74f-wwcqc   2/2     Running   0          2m    192.168.76.160   ip-192-168-69-19.eu-central-1.compute.internal    <none>
+pod/ratings-v1-76f4c9765f-lzgpb       2/2     Running   0          2m    192.168.91.69    ip-192-168-69-19.eu-central-1.compute.internal    <none>
+pod/reviews-v1-56f6855586-rnkjj       2/2     Running   0          2m    192.168.77.69    ip-192-168-69-19.eu-central-1.compute.internal    <none>
+pod/reviews-v2-65c9df47f8-sq2vh       2/2     Running   0          2m    192.168.8.68     ip-192-168-26-217.eu-central-1.compute.internal   <none>
+pod/reviews-v3-6cf47594fd-nw8hv       2/2     Running   0          2m    192.168.6.236    ip-192-168-26-217.eu-central-1.compute.internal   <none>
 ```
 
 Check the container details - you should see also container `istio-proxy` next
@@ -84,11 +84,11 @@ Output:
 ...
 Containers:
   productpage:
-    Container ID:   docker://c145182a97f7ff526c6a22009771cc67ddb0a8995131607d4242cbcb0eef358e
+    Container ID:   docker://62984fbf7913e8cd91e5188571c7efad781880966a0d9b36279f368ad9cbf2a0
     Image:          istio/examples-bookinfo-productpage-v1:1.10.1
 ...
   istio-proxy:
-    Container ID:  docker://1fe8c140ef45060f07ae72173e512e872f9a0e9e23a42922545dea9797be3347
+    Container ID:  docker://17a2c6c87b1e8f315417b284973452332ea34162543af46776075ad1f43db327
     Image:         docker.io/istio/proxyv2:1.1.0
 ...
 ```
@@ -103,7 +103,7 @@ Output:
 
 ```shell
 ...
-2019-03-21T16:41:16.466062Z     info    Effective config: binaryPath: /usr/local/bin/envoy
+2019-03-29T09:49:07.660863Z     info    Effective config: binaryPath: /usr/local/bin/envoy
 concurrency: 2
 configPath: /etc/istio/proxy
 connectTimeout: 10s
@@ -117,15 +117,15 @@ tracing:
   zipkin:
     address: zipkin.istio-system:9411
 
-2019-03-21T16:41:16.466078Z     info    Monitored certs: []envoy.CertSource{envoy.CertSource{Directory:"/etc/certs/", Files:[]string{"cert-chain.pem", "key.pem", "root-cert.pem"}}}
-2019-03-21T16:41:16.466086Z     info    PilotSAN []string(nil)
-2019-03-21T16:41:16.467206Z     info    Opening status port 15020
+2019-03-29T09:49:07.660886Z     info    Monitored certs: []envoy.CertSource{envoy.CertSource{Directory:"/etc/certs/", Files:[]string{"cert-chain.pem", "key.pem", "root-cert.pem"}}}
+2019-03-29T09:49:07.660896Z     info    PilotSAN []string(nil)
+2019-03-29T09:49:07.660996Z     info    Opening status port 15020
 
-2019-03-21T16:41:16.467636Z     info    Starting proxy agent
-2019-03-21T16:41:16.467917Z     info    Received new config, resetting budget
-2019-03-21T16:41:16.467924Z     info    Reconciling retry (budget 10)
-2019-03-21T16:41:16.468219Z     info    Epoch 0 starting
-2019-03-21T16:41:16.469316Z     info    Envoy command: [-c /etc/istio/proxy/envoy-rev0.json --restart-epoch 0 --drain-time-s 45 --parent-shutdown-time-s 60 --service-cluster productpage.default --service-node sidecar~192.168.44.120~productpage-v1-5cb458d74f-vr6f2.default~default.svc.cluster.local --max-obj-name-len 189 --allow-unknown-fields -l warning --concurrency 2]
+2019-03-29T09:49:07.661159Z     info    Starting proxy agent
+2019-03-29T09:49:07.661340Z     info    Received new config, resetting budget
+2019-03-29T09:49:07.661349Z     info    Reconciling retry (budget 10)
+2019-03-29T09:49:07.661359Z     info    Epoch 0 starting
+2019-03-29T09:49:07.662335Z     info    Envoy command: [-c /etc/istio/proxy/envoy-rev0.json --restart-epoch 0 --drain-time-s 45 --parent-shutdown-time-s 60 --service-cluster productpage.default --service-node sidecar~192.168.76.160~productpage-v1-5cb458d74f-wwcqc.default~default.svc.cluster.local --max-obj-name-len 189 --allow-unknown-fields -l warning --concurrency 2]
 ...
 ```
 
@@ -230,20 +230,16 @@ Output:
 
 ```shell
 NAME                                           AGE
-gateway.networking.istio.io/bookinfo-gateway   1h
+gateway.networking.istio.io/bookinfo-gateway   13s
 
-NAME                                                         GATEWAYS             HOSTS                  AGE
-virtualservice.networking.istio.io/bookinfo                  [bookinfo-gateway]   [*]                    1h
-virtualservice.networking.istio.io/details                                        [details]              1h
-virtualservice.networking.istio.io/productpage                                    [productpage]          1h
-virtualservice.networking.istio.io/ratings                                        [ratings]              1h
-virtualservice.networking.istio.io/reviews                                        [reviews]              1h
+NAME                                          GATEWAYS             HOSTS   AGE
+virtualservice.networking.istio.io/bookinfo   [bookinfo-gateway]   [*]     13s
 
-NAME                                                           HOST          AGE
-destinationrule.networking.istio.io/details                    details       1h
-destinationrule.networking.istio.io/productpage                productpage   1h
-destinationrule.networking.istio.io/ratings                    ratings       1h
-destinationrule.networking.istio.io/reviews                    reviews       1h
+NAME                                              HOST          AGE
+destinationrule.networking.istio.io/details       details       8s
+destinationrule.networking.istio.io/productpage   productpage   8s
+destinationrule.networking.istio.io/ratings       ratings       8s
+destinationrule.networking.istio.io/reviews       reviews       8s
 ```
 
 ![Gateway -> VirtualService -> DestinationRule](https://raw.githubusercontent.com/istio/istio.io/92bc65af57592294102e1bc2cb13b333b44a73e0/content/blog/2018/v1alpha3-routing/virtualservices-destrules.svg?sanitize=true
@@ -251,6 +247,8 @@ destinationrule.networking.istio.io/reviews                    reviews       1h
 
 Check the SSL certificate (or check the certificate transparency log
 [https://crt.sh/?q=mylabs.dev](https://crt.sh/?q=mylabs.dev)):
+
+![crt.sh Certificate](./crt_sh.png "crt.sh Certificate")
 
 ```bash
 echo | openssl s_client -showcerts -connect ${MY_DOMAIN}:443 2>/dev/null | openssl x509 -inform pem -noout -text
@@ -262,18 +260,35 @@ Output:
 Certificate:
     Data:
         Version: 3 (0x2)
-...
+        Serial Number:
+            03:ba:eb:a2:34:43:0c:ae:7b:63:64:4d:4a:ee:c1:25:b4:35
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = US, O = Let's Encrypt, CN = Let's Encrypt Authority X3
         Validity
-            Not Before: Mar 25 11:29:48 2019 GMT
-            Not After : Jun 23 11:29:48 2019 GMT
+            Not Before: Mar 29 08:46:52 2019 GMT
+            Not After : Jun 27 08:46:52 2019 GMT
         Subject: CN = *.mylabs.dev
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
 ...
         X509v3 extensions:
             X509v3 Key Usage: critical
                 Digital Signature, Key Encipherment
             X509v3 Extended Key Usage:
                 TLS Web Server Authentication, TLS Web Client Authentication
-...
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                AB:60:E9:ED:3F:40:72:83:7D:62:08:F9:EB:8F:EA:1C:42:CC:76:4E
+            X509v3 Authority Key Identifier:
+                keyid:A8:4A:6A:63:04:7D:DD:BA:E6:D1:39:B7:A6:45:65:EF:F3:A8:EC:A1
+
+            Authority Information Access:
+                OCSP - URI:http://ocsp.int-x3.letsencrypt.org
+                CA Issuers - URI:http://cert.int-x3.letsencrypt.org/
+
             X509v3 Subject Alternative Name:
                 DNS:*.mylabs.dev, DNS:mylabs.dev
             X509v3 Certificate Policies:
@@ -282,6 +297,9 @@ Certificate:
                   CPS: http://cps.letsencrypt.org
 ...
 ```
+
+![Kiali SSL Certificate displayed in browser](./kiali_ssl_certificate.png
+"Kiali SSL Certificate displayed in browser")
 
 You can also use the [cert-manager](https://github.com/jetstack/cert-manager)
 directly to see the cert status:
@@ -293,19 +311,19 @@ kubectl describe certificates ingress-cert-${LETSENCRYPT_ENVIRONMENT} -n istio-s
 Output:
 
 ```text
-Name:         ingress-cert-staging
+Name:         ingress-cert-production
 Namespace:    istio-system
 Labels:       <none>
 Annotations:  kubectl.kubernetes.io/last-applied-configuration:
-                {"apiVersion":"certmanager.k8s.io/v1alpha1","kind":"Certificate","metadata":{"annotations":{},"name":"ingress-cert-staging","namespace":"i...
+                {"apiVersion":"certmanager.k8s.io/v1alpha1","kind":"Certificate","metadata":{"annotations":{},"name":"ingress-cert-production","namespace"...
 API Version:  certmanager.k8s.io/v1alpha1
 Kind:         Certificate
 Metadata:
-  Creation Timestamp:  2019-03-27T09:20:20Z
+  Creation Timestamp:  2019-03-29T09:43:02Z
   Generation:          1
-  Resource Version:    3183
-  Self Link:           /apis/certmanager.k8s.io/v1alpha1/namespaces/istio-system/certificates/ingress-cert-staging
-  UID:                 8aeff33c-5071-11e9-9540-064d037ebd08
+  Resource Version:    2854
+  Self Link:           /apis/certmanager.k8s.io/v1alpha1/namespaces/istio-system/certificates/ingress-cert-production
+  UID:                 0b677790-5207-11e9-ac06-02dc9c152bfa
 Spec:
   Acme:
     Config:
@@ -320,24 +338,24 @@ Spec:
     mylabs.dev
   Issuer Ref:
     Kind:       ClusterIssuer
-    Name:       letsencrypt-staging-dns
-  Secret Name:  ingress-cert-staging
+    Name:       letsencrypt-production-dns
+  Secret Name:  ingress-cert-production
 Status:
   Conditions:
-    Last Transition Time:  2019-03-27T09:24:08Z
+    Last Transition Time:  2019-03-29T09:46:53Z
     Message:               Certificate is up to date and has not expired
     Reason:                Ready
     Status:                True
     Type:                  Ready
-  Not After:               2019-06-25T08:24:07Z
+  Not After:               2019-06-27T08:46:52Z
 Events:
-  Type     Reason          Age                    From          Message
-  ----     ------          ----                   ----          -------
-  Warning  IssuerNotReady  5m57s (x2 over 5m57s)  cert-manager  Issuer letsencrypt-staging-dns not ready
-  Normal   Generated       5m56s                  cert-manager  Generated new private key
-  Normal   OrderCreated    5m56s                  cert-manager  Created Order resource "ingress-cert-staging-3500457514"
-  Normal   OrderComplete   2m9s                   cert-manager  Order "ingress-cert-staging-3500457514" completed successfully
-  Normal   CertIssued      2m9s                   cert-manager  Certificate issued successfully
+  Type     Reason          Age                  From          Message
+  ----     ------          ----                 ----          -------
+  Warning  IssuerNotReady  9m9s (x2 over 9m9s)  cert-manager  Issuer letsencrypt-production-dns not ready
+  Normal   Generated       9m8s                 cert-manager  Generated new private key
+  Normal   OrderCreated    9m8s                 cert-manager  Created Order resource "ingress-cert-production-3383842614"
+  Normal   OrderComplete   5m18s                cert-manager  Order "ingress-cert-production-3383842614" completed successfully
+  Normal   CertIssued      5m18s                cert-manager  Certificate issued successfully
 ```
 
 ![cert-manager high level overview](https://raw.githubusercontent.com/jetstack/cert-manager/4f30ed75e88e5d0defeb950501b5cac6da7fa7fe/docs/images/high-level-overview.png
@@ -366,6 +384,12 @@ loadbalancer:
 
 ```bash
 kubectl -n istio-system get service istio-ingressgateway -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"; echo
+```
+
+Output:
+
+```shell
+abd0be556520611e9ac0602dc9c152bf-2144127322.eu-central-1.elb.amazonaws.com
 ```
 
 * Kiali: `http://<IP ADDRESS OF CLUSTER INGRESS>:15029`

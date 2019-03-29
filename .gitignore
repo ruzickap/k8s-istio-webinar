@@ -1,7 +1,7 @@
 # demo-magic.sh script
 demo-magic.sh
 # Kubernetes kubeconfig file
-kubeconfig*.conf
+kubeconfig.conf
 # Ignore temporary README.sh script
 README.sh
 # ignore builded pages by Vuepress

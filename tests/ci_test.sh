@@ -1,7 +1,8 @@
 #!/bin/bash -eux
 
 kubeadm-dind-cluster_install() {
-  curl -Ls https://github.com/kubernetes-sigs/kubeadm-dind-cluster/releases/download/v0.1.0/dind-cluster-v1.13.sh --output dind-cluster.sh
+  curl -Ls https://raw.githubusercontent.com/kubernetes-sigs/kubeadm-dind-cluster/master/config.sh --output config.sh
+  curl -Ls https://raw.githubusercontent.com/kubernetes-sigs/kubeadm-dind-cluster/master/dind-cluster.sh --output dind-cluster.sh
   chmod +x dind-cluster.sh
 
   # start the cluster

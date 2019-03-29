@@ -40,18 +40,18 @@ jobs:
         # Check links on generated pages
         - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" --ignore-url "(http|https)://.*${MY_DOMAIN}" http://${HOST_IP_ADDRESS}:8080/${TRAVIS_REPO_SLUG##*/}
 
-    # - stage: Tests
-    #   name: "Command check"
-    #   language: minimal
-    #   addons:
-    #     apt:
-    #       packages:
-    #         - pv
-    #         - siege
-    #   services:
-    #     - docker
-    #   script:
-    #     - tests/ci_test.sh
+    - stage: Tests
+      name: "Command check"
+      language: minimal
+      addons:
+        apt:
+          packages:
+            - pv
+            - siege
+      services:
+        - docker
+      script:
+        - tests/ci_test.sh
 
     - stage: Build & Deploy
       name: "Build and Deploy to GitHub pages"

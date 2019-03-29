@@ -38,7 +38,7 @@ clear
 # docker run -it --rm -e USER="$USER" -v $HOME/.ssh:/root/.ssh:ro -v $HOME/.aws:/root/.aws -v $PWD:/mnt ubuntu
 # echo $(hostname -I) $(hostname) >> /etc/hosts
 
-# export LETSENCRYPT_ENVIRONMENT="staging"
+# export LETSENCRYPT_ENVIRONMENT="staging" # production
 # export MY_DOMAIN="mylabs.dev"
 
 # apt-get update -qq && apt-get install -qq -y curl git pv > /dev/null

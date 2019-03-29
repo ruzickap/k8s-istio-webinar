@@ -39,7 +39,7 @@ clear
 # echo $(hostname -I) $(hostname) >> /etc/hosts
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 
-# export LETSENCRYPT_ENVIRONMENT="staging"
+# export LETSENCRYPT_ENVIRONMENT="staging" # production
 # export MY_DOMAIN="mylabs.dev"
 # export EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID=$(awk -F\" "/AccessKeyId/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})
 # export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY=$(awk -F\" "/SecretAccessKey/ { print \$4 }" $HOME/.aws/${USER}-eks-cert-manager-route53-${MY_DOMAIN})

@@ -1,9 +1,12 @@
 # Istio webinar
 
+[![Build Status](https://travis-ci.com/ruzickap/k8s-istio-webinar.svg?branch=master)](https://travis-ci.com/ruzickap/k8s-istio-webinar)
+
 Webinar pages:
 
-* Web Pages: [https://ruzickap.github.io/k8s-istio-webinar/](https://ruzickap.github.io/k8s-istio-webinar/)
+* Web Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
 * GitHub: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
+* Presentation: [https://slides.com/ruzickap/k8s-istio-webinar](https://slides.com/ruzickap/k8s-istio-webinar)
 * Asciinema webinar screencast: [https://asciinema.org/a/237567](https://asciinema.org/a/237567?autoplay=1)
 
 [Istio](https://istio.io/) is an open platform to connect, secure, control

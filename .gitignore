@@ -8,3 +8,5 @@ README.sh
 docs/.vuepress/dist
 # ignore tmp directory
 tmp
+# cloned git repo
+k8s-istio-webinar

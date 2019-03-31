@@ -453,7 +453,7 @@ Open the browser with these pages:
       ![Prometheus - istio_requests_total](./prometheus_istio_requests_total2.png
       "Prometheus - istio_requests_total")
 
-  * Total count of all requests to v1 of the reviews service:
+  * Total count of all requests to `v1` of the reviews service:
 
     * [https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0](https://prometheus.mylabs.dev/graph?g0.range_input=1h&g0.expr=istio_requests_total%7Bdestination_service%3D%22reviews.default.svc.cluster.local%22%2C%20destination_version%3D%22v1%22%7D&g0.tab=0)
 

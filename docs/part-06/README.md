@@ -2,7 +2,7 @@
 
 [https://istio.io/docs/tasks/traffic-management/fault-injection/#injecting-an-http-delay-fault](https://istio.io/docs/tasks/traffic-management/fault-injection/#injecting-an-http-delay-fault)
 
-Inject a 7s delay between the `reviews:v2` and ratings microservices for
+Inject a 7 seconds delay between the `reviews:v2` and ratings microservices for
 user `jason`:
 
 ```bash
@@ -55,7 +55,7 @@ Sorry, product reviews are currently unavailable for this book.
 ![Bookinfo Injecting an HTTP delay fault](./bookinfo_injecting_http_delay_fault.gif
 "Bookinfo Injecting an HTTP delay fault")
 
-Open the Developer Tools menu (F12) -> Network tab - webpage actually loads
+Open the Developer Tools menu (F12) -> Network tab - web page actually loads
 in about 6 seconds.
 
 ![Bookinfo Injecting an HTTP delay fault - Developer Tools](./bookinfo_injecting_http_delay_fault_developer_tools.png

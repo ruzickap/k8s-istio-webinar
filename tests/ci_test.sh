@@ -26,6 +26,10 @@ sudo mv kubectl /usr/local/bin/
 kubeadm-dind-cluster_install
 kubectl cluster-info
 
+# Variables
+export LETSENCRYPT_ENVIRONMENT="staging" # production
+export MY_DOMAIN="mylabs.dev"
+
 # Commands
 sed -n '/^```bash$/,/^```$/p' docs/part-{02..08}/README.md | sed '/^```*/d' > README.sh
 source ./README.sh

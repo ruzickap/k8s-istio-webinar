@@ -24,7 +24,7 @@ and observe what exactly is going on with your services.
 * [AWS account](https://aws.amazon.com/account/)
 * [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 * [eksctl](https://eksctl.io/)
-* Kubernetes and linux knowledge required
+* Kubernetes and Linux knowledge required
 
 ## Objectives
 

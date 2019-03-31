@@ -63,7 +63,7 @@ Update Complete. ⎈ Happy Helming!⎈
 Check if the tiller was installed properly:
 
 ```bash
-kubectl get pods -l app=helm --all-namespaces
+kubectl get pods -l app=helm -n kube-system
 ```
 
 Output:

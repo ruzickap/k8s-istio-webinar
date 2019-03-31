@@ -64,9 +64,8 @@ jobs:
         - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
       script:
         - vuepress build docs
-      after_success:
-        - mv --verbose LICENSE docs/.vuepress/dist
-        - sed 's@docs/@https://raw.githubusercontent.com/ruzickap/k8s-istio-webinar/master/docs/@' README.md > docs/.vuepress/dist/README.md
+        - cp LICENSE docs/.vuepress/dist
+        - sed -e 's@(part-@(https://github.com/ruzickap/k8s-istio-webinar/tree/master/docs/part-@' -e 's@.\/.vuepress\/public\/@./@' docs/README.md > docs/.vuepress/dist/README.md
 
       deploy:
         provider: pages

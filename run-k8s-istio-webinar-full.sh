@@ -46,7 +46,7 @@ clear
 # git clone https://github.com/ruzickap/k8s-istio-webinar && cd k8s-istio-webinar
 # ./run-k8s-istio-webinar-full.sh
 
-sed '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings:/d' docs/part-{01..08}/README.md | \
+sed '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings./d' docs/part-{01..08}/README.md | \
 sed -n '/^```bash$/,/^```$/p;/^-----$/p'  | \
 sed -e 's/^-----$/\
 p  ""\

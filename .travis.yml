@@ -60,7 +60,7 @@ jobs:
       language: node_js
       node_js: 10
       install:
-        - npm install -g vuepress@next
+        - npm install vuepress@1.0.0-alpha.44 @vuepress/core@1.0.0-alpha.44
         - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
       script:
         - vuepress build docs

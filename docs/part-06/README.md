@@ -7,11 +7,6 @@ user `jason`:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml
-```
-
-Confirm the rule was created:
-
-```bash
 kubectl get virtualservice ratings -o yaml
 ```
 
@@ -93,11 +88,6 @@ Create a fault injection rule to send an HTTP abort for user `jason`:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-abort.yaml
-```
-
-Confirm the rule was created:
-
-```bash
 kubectl get virtualservice ratings -o yaml
 ```
 

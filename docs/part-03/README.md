@@ -51,7 +51,9 @@ helm install install/kubernetes/helm/istio-init --wait \
 sleep 30
 ```
 
-Install [Istio](https://istio.io/):
+Install [Istio](https://istio.io/) with add-ons ([Kiali](https://www.kiali.io/),
+[Jaeger](https://www.jaegertracing.io/), [Grafana](https://grafana.com/),
+[Prometheus](https://prometheus.io/), [cert-manager](https://github.com/jetstack/cert-manager)):
 
 ```bash
 helm install install/kubernetes/helm/istio --wait --name istio --namespace istio-system \
@@ -88,10 +90,10 @@ envsubst < ../../files/aws_route53-dns_change.json | aws route53 change-resource
 
 ## Create SSL certificate using Let's Encrypt
 
-Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager.
+Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager ([yaml](https://github.com/ruzickap/k8s-istio-webinar/blob/master/files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml)).
 It will allow Let's encrypt to generate certificate. Route53 (DNS) method of
 requesting certificate from Let's Encrypt must be used to create wildcard
-certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/wildcard-certificates-via-http-01/51223))
+certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/wildcard-certificates-via-http-01/51223)).
 
 ```bash
 export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)

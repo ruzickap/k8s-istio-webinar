@@ -23,11 +23,6 @@ Transfer **50%** of the traffic from `reviews:v1` to `reviews:v3`:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml
-```
-
-Confirm the rule was replaced:
-
-```bash
 kubectl get virtualservice reviews -o yaml
 ```
 
@@ -67,6 +62,23 @@ route **100%** of the traffic to `reviews:v3` by applying this virtual service.
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-v3.yaml
+kubectl get virtualservice reviews -o yaml
+```
+
+Output:
+
+```shell
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+...
+spec:
+  hosts:
+  - reviews
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v3
 ```
 
 When you refresh the `/productpage` you will always see book reviews

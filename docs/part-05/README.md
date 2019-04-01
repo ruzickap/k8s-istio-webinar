@@ -7,16 +7,11 @@ of a microservice.
 
 ## Apply a virtual service
 
-Apply the virtual services which will route all traffic to `v1` of each
+Apply and display the virtual services which will route all traffic to `v1` of each
 microservice:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml
-```
-
-Display the defined routes:
-
-```bash
 kubectl get virtualservices -o yaml
 ```
 
@@ -101,11 +96,6 @@ Enable user-based routing:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
-```
-
-Confirm the rule is created:
-
-```bash
 kubectl get virtualservice reviews -o yaml
 ```
 

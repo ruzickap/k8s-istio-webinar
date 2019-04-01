@@ -3,6 +3,7 @@
 Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) application:
 
 ```bash
+# kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 sleep 400
 ```
@@ -93,7 +94,8 @@ Containers:
 ...
 ```
 
-The `kubectl logs` command will show you the output of the envoy proxy:
+The `kubectl logs` command will show you the output of the envoy proxy
+(`istio-proxy`):
 
 ```bash
 kubectl logs $(kubectl get pod -l app=productpage -o jsonpath="{.items[0].metadata.name}") istio-proxy | head -70
@@ -182,18 +184,15 @@ spec:
           number: 9080
 ```
 
-Create default [destination rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule)
+Create and display default [destination rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule)
 (subsets) for the Bookinfo services:
 
 ```bash
 kubectl apply -f samples/bookinfo/networking/destination-rule-all.yaml
+kubectl get destinationrules -o yaml
 ```
 
 Display the destination rules:
-
-```bash
-kubectl get destinationrules -o yaml
-```
 
 Output:
 
@@ -409,7 +408,7 @@ the version routing.
 
 ![Bookinfo v1, v3, v2](./bookinfo_v1_v3_v2.gif "Bookinfo v1, v3, v2")
 
-Check the flows in [Kiali](https://www.kiali.io/) graph:
+Check the flows in [Kiali](https://kiali.mylabs.dev/console/graph/namespaces/?edges=requestsPercentOfTotal&graphType=versionedApp&namespaces=default&injectServiceNodes=true&duration=60&pi=5000&layout=dagre):
 
 ![Istio Graph](./istio_kiali_graph.gif "Istio Graph")
 

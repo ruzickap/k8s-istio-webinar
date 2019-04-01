@@ -14,6 +14,7 @@ The `LETSENCRYPT_ENVIRONMENT` variable should be one of:
 ```bash
 export MY_DOMAIN=${MY_DOMAIN:-mylabs.dev}
 export LETSENCRYPT_ENVIRONMENT=${LETSENCRYPT_ENVIRONMENT:-staging}
+echo "${MY_DOMAIN} | ${LETSENCRYPT_ENVIRONMENT}"
 ```
 
 ## Prepare the local working environment

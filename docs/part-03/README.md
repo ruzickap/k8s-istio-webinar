@@ -97,7 +97,7 @@ certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/w
 
 ```bash
 export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)
-envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml > /tmp/cert-manager
+envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml | tee /tmp/cert-manager
 kubectl apply -f /tmp/cert-manager
 ```
 

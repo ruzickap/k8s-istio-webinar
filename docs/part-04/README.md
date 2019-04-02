@@ -379,7 +379,7 @@ Output:
 Generate some traffic for next 5 minutes to gather some data for monitoring:
 
 ```bash
-siege --log=/tmp/siege --concurrent=1 -q --internet --time=5M http://${MY_DOMAIN}/productpage &> /dev/null &
+siege --log=/tmp/siege --concurrent=1 -q --internet --time=10M http://${MY_DOMAIN}/productpage &> /dev/null &
 ```
 
 In case of DNS issue you can use the services exposed on ports directly from

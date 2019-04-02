@@ -90,14 +90,15 @@ envsubst < ../../files/aws_route53-dns_change.json | aws route53 change-resource
 
 ## Create SSL certificate using Let's Encrypt
 
-Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager ([yaml](https://github.com/ruzickap/k8s-istio-webinar/blob/master/files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml)).
+Create `ClusterIssuer` and `Certificate` for Route53 used by cert-manager.
 It will allow Let's encrypt to generate certificate. Route53 (DNS) method of
 requesting certificate from Let's Encrypt must be used to create wildcard
 certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/wildcard-certificates-via-http-01/51223)).
 
 ```bash
 export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)
-envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml | kubectl apply -f -
+envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml > /tmp/cert-manager
+kubectl apply -f /tmp/cert-manager
 ```
 
 ![ACME DNS Challenge](https://b3n.org/wp-content/uploads/2016/09/acme_letsencrypt_dns-01-challenge.png

@@ -4,8 +4,8 @@ Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) applicat
 
 ```bash
 # kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
-kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 tail -40 samples/bookinfo/platform/kube/bookinfo.yaml
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 ```
 
 Output:
@@ -56,7 +56,7 @@ spec:
 Example with `istioctl`:
 
 ```bash
-istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml | tail -180
+istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml | tail -172
 sleep 400
 ```
 

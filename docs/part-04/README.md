@@ -5,7 +5,100 @@ Deploy the demo of [Bookinfo](https://istio.io/docs/examples/bookinfo/) applicat
 ```bash
 # kubectl apply -f <(istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml)
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+tail -40 samples/bookinfo/platform/kube/bookinfo.yaml
+```
+
+Output:
+
+```shell
+---
+##################################################################################################
+# Productpage services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  labels:
+    app: productpage
+    service: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: productpage
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: productpage-v1
+  labels:
+    app: productpage
+    version: v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      containers:
+      - name: productpage
+        image: istio/examples-bookinfo-productpage-v1:1.10.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+---
+```
+
+Example with `istioctl`:
+
+```bash
+istioctl kube-inject -f samples/bookinfo/platform/kube/bookinfo.yaml | tail -180
 sleep 400
+```
+
+Output:
+
+```shell
+...
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: productpage
+    version: v1
+  name: productpage-v1
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/status: '{"version":"1d03c7b8369fddca69b40289a75eabb02e48b68ad5516e6975265f215d382f74","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
+      creationTimestamp: null
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      containers:
+      - image: istio/examples-bookinfo-productpage-v1:1.10.1
+        imagePullPolicy: IfNotPresent
+        name: productpage
+        ports:
+        - containerPort: 9080
+        resources: {}
+...
+        image: docker.io/istio/proxyv2:1.1.0
+        imagePullPolicy: IfNotPresent
+        name: istio-proxy
+        ports:
+        - containerPort: 15090
+          name: http-envoy-prom
+          protocol: TCP
 ```
 
 The Bookinfo application is broken into four separate microservices:

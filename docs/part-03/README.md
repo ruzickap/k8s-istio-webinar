@@ -97,8 +97,8 @@ certificate `*.mylabs.dev` (details [here](https://community.letsencrypt.org/t/w
 
 ```bash
 export EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY_BASE64=$(echo -n "$EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY" | base64)
-envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml | tee /tmp/cert-manager
-kubectl apply -f /tmp/cert-manager
+cat ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml
+envsubst < ../../files/cert-manager-letsencrypt-aws-route53-clusterissuer-certificate.yaml | kubectl apply -f -
 ```
 
 ![ACME DNS Challenge](https://b3n.org/wp-content/uploads/2016/09/acme_letsencrypt_dns-01-challenge.png

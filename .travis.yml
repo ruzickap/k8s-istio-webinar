@@ -30,8 +30,7 @@ jobs:
         - docker
       node_js: 10
       install:
-        - npm install -g vuepress@next
-        - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
+        - npm install vuepress@next @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
       script:
         # Get local IP
         - export HOST_IP_ADDRESS="$(ip -4 addr show docker0 | sed -n 's/.* inet \([^/]*\).*/\1/p')"
@@ -60,8 +59,7 @@ jobs:
       language: node_js
       node_js: 10
       install:
-        - npm install vuepress@1.0.0-alpha.44 @vuepress/core@1.0.0-alpha.44
-        - npm install @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
+        - npm install vuepress@next @vuepress/plugin-medium-zoom @vuepress/plugin-back-to-top vuepress-plugin-seo
       script:
         - vuepress build docs
         - cp LICENSE docs/.vuepress/dist

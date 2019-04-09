@@ -218,7 +218,7 @@ destinationrule.networking.istio.io/istio-telemetry   istio-telemetry.istio-syst
 
 Configure the Istio services ([Jaeger](https://www.jaegertracing.io/),
 [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/),
-[Kiali](http://kiali.mylabs.dev), Servicegraph) to be visible externally:
+[Kiali](https://www.kiali.io/), Servicegraph) to be visible externally:
 
 ```bash
 envsubst < ../../files/export_services_gateway.yaml | kubectl apply -f -

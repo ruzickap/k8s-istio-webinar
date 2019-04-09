@@ -15,6 +15,7 @@ and observe what exactly is going on with your services.
 * GitHub repository: [https://github.com/ruzickap/k8s-istio-webinar](https://github.com/ruzickap/k8s-istio-webinar)
 * Web Pages: [https://ruzickap.github.io/k8s-istio-webinar](https://ruzickap.github.io/k8s-istio-webinar)
 * Presentation: [https://slides.com/ruzickap/k8s-istio-webinar](https://slides.com/ruzickap/k8s-istio-webinar)
+* YouTube: [https://youtu.be/6S3Cr_eJqiU](https://youtu.be/6S3Cr_eJqiU)
 * Asciinema webinar screencast: [https://asciinema.org/a/237567](https://asciinema.org/a/237567?autoplay=1)
 
 ## Requirements

@@ -4,6 +4,10 @@ dist: xenial
 env:
   - MY_DOMAIN=mylabs.dev
 
+branches:
+  except:
+    - gh-pages
+
 jobs:
   include:
     - stage: Tests

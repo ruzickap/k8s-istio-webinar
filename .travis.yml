@@ -16,16 +16,16 @@ jobs:
       node_js: 10
       install:
         # Install markdownlint and markdown-link-check
-        - npm install -g markdownlint-cli markdown-link-check markdown-spellcheck > /dev/null
+        - npm install -g markdownlint-cli markdown-link-check markdown-spellcheck
       script:
         # Markdown check
         - 'echo "{ MD013: { code_blocks: false } }" > /tmp/markdownlint_config.json'
-        - find . -name "*.md" -print0 | xargs -0 markdownlint -c /tmp/markdownlint_config.json
+        - find . -path ./node_modules -prune -o -name "*.md" -print0 | xargs -t -0 markdownlint -c /tmp/markdownlint_config.json
         # Link Checks
         - 'echo "{ \"ignorePatterns\": [ { \"pattern\": \"^(http|https)://localhost\" }, { \"pattern\": \"^(http|https)://.*${MY_DOMAIN}\" } ] }" > /tmp/config.json'
-        - find . -name "*.md" -print0 | xargs -0 markdown-link-check --config /tmp/config.json --quiet
+        - find . -path ./node_modules -prune -o -name "*.md" -print0 | xargs -t -0 markdown-link-check --config /tmp/config.json --quiet
         # Spell Check
-        - mdspell '**/*.md' --ignore-numbers --ignore-acronyms --report --en-gb
+        - mdspell '**/*.md' '!**/node_modules/**/*.md' --ignore-numbers --ignore-acronyms --report --en-gb
 
     - stage: Tests
       name: "Web links check"
@@ -67,7 +67,7 @@ jobs:
       script:
         - vuepress build docs
         - cp LICENSE docs/.vuepress/dist
-        - sed -e 's@(part-@(https://github.com/ruzickap/k8s-istio-webinar/tree/master/docs/part-@' -e 's@.\/.vuepress\/public\/@./@' docs/README.md > docs/.vuepress/dist/README.md
+        - sed -e "s@(part-@(https://github.com/${TRAVIS_REPO_SLUG%/*}/${TRAVIS_REPO_SLUG##*/}/tree/master/docs/part-@" -e 's@.\/.vuepress\/public\/@./@' docs/README.md > docs/.vuepress/dist/README.md
 
       deploy:
         provider: pages
@@ -84,4 +84,4 @@ jobs:
       services:
         - docker
       script:
-        - docker run -it --rm linkchecker/linkchecker --check-extern --no-status --ignore-url "(http|https)://localhost" --ignore-url "(http|https)://.*${MY_DOMAIN}" https://${TRAVIS_REPO_SLUG%/*}.github.io/${TRAVIS_REPO_SLUG##*/}
+        - docker run -it --rm linkchecker/linkchecker --pause=1 --check-extern --no-status --ignore-url "(http|https)://localhost" --ignore-url "(http|https)://.*${MY_DOMAIN}" https://${TRAVIS_REPO_SLUG%/*}.github.io/${TRAVIS_REPO_SLUG##*/}

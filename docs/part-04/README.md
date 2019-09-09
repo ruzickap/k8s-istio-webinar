@@ -277,7 +277,7 @@ spec:
           number: 9080
 ```
 
-Create and display default [destination rules](https://istio.io/docs/reference/config/istio.networking.v1alpha3/#DestinationRule)
+Create and display default [destination rules](https://istio.io/docs/reference/config/networking/v1alpha3/destination-rule/)
 (subsets) for the Bookinfo services:
 
 ```bash

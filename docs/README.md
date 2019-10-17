@@ -1,6 +1,6 @@
 # Istio webinar
 
-[![Build Status](https://travis-ci.com/ruzickap/k8s-istio-webinar.svg?branch=master)](https://travis-ci.com/ruzickap/k8s-istio-webinar)
+![Build Status](https://github.com/ruzickap/k8s-istio-webinar/workflows/vuepress-build/badge.svg)
 
 [Istio](https://istio.io/) is an open platform to connect, secure, control
 and observe microservices, also known as a service mesh, on cloud platforms
@@ -65,4 +65,4 @@ and observe what exactly is going on with your services.
 
   * [Istio Workshop by Ray Tsang](https://github.com/retroryan/istio-workshop)
 
-  * [Amazon EKS Workshop - Service Mesh with Istio](https://eksworkshop.com/servicemesh/)
+  * [Amazon EKS Workshop - Service Mesh with Istio](https://eksworkshop.com/servicemesh_with_istio/)

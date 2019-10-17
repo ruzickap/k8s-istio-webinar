@@ -1,0 +1,36 @@
+{
+  "name": "k8s-sockshop",
+  "version": "0.0.1",
+  "description": "Install services using Flux + Flagger + Istio + inside AKS cluster running in Azure",
+  "author": "Petr Ruzicka <petr.ruzicka@gmail.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://ruzickap.github.io/k8s-sockshop",
+  "keywords": [
+    "flagger",
+    "flux",
+    "flux",
+    "kubernetes",
+    "demo",
+    "presentation"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruzickap/k8s-sockshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ruzickap/k8s-sockshop/issues"
+  },
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "dependencies": {
+    "vuepress": "^1.2.0",
+    "@vuepress/plugin-back-to-top": "^1.2.0",
+    "@vuepress/plugin-medium-zoom": "^1.2.0",
+    "vuepress-plugin-seo": "^0.1.2",
+    "vuepress-plugin-reading-progress": "^1.0.7",
+    "vuepress-plugin-smooth-scroll": "^0.0.6"
+  }
+}

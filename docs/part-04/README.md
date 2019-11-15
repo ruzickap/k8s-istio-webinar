@@ -224,7 +224,7 @@ tracing:
 ...
 ```
 
-Define the [Istio gateway](https://istio.io/docs/reference/config/networking/v1alpha3/gateway/)
+Define the [Istio gateway](https://istio.io/docs/reference/config/networking/gateway/)
 for the application:
 
 ```bash
@@ -277,7 +277,7 @@ spec:
           number: 9080
 ```
 
-Create and display default [destination rules](https://istio.io/docs/reference/config/networking/v1alpha3/destination-rule/)
+Create and display default [destination rules](https://istio.io/docs/reference/config/networking/destination-rule/)
 (subsets) for the Bookinfo services:
 
 ```bash

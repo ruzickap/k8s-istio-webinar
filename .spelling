@@ -5,9 +5,11 @@
 Asciinema
 Atamel
 awscli
+blogs.oracle.com
 Bookinfo
 Cleanup
 CloudFormation
+cloudnative
 colored
 Conf
 CRDs
@@ -23,6 +25,7 @@ grafana_istio_performance_dashboard.png
 grafana_istio_pilot_dashboard.png
 grafana_istio_service_dashboard.png
 grafana_istio_workload_dashboard.png
+helm-kubernetes-package-management
 Istio
 istio_requests_total
 Kiali

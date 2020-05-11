@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+set -eu
+
 ################################################
 # include the magic
 ################################################
 test -f ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxtonhare/demo-magic/master/demo-magic.sh > demo-magic.sh
+# shellcheck disable=SC1091
 . ./demo-magic.sh -n
 
 ################################################
@@ -13,7 +16,7 @@ test -f ./demo-magic.sh || curl --silent https://raw.githubusercontent.com/paxto
 #
 # speed at which to simulate typing. bigger num = faster
 #
-TYPE_SPEED=60
+export TYPE_SPEED=60
 
 # Uncomment to run non-interactively
 export PROMPT_TIMEOUT=0
@@ -27,7 +30,7 @@ export NO_WAIT=false
 # see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html for escape sequences
 #
 #DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
-DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
+export DEMO_PROMPT="${GREEN}➜ ${CYAN}$ "
 
 # hide the evidence
 clear
@@ -47,16 +50,13 @@ clear
 # ./run-k8s-istio-webinar-full.sh
 
 sed '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Route 53 settings./d' docs/part-{01..08}/README.md | \
-sed -n '/^```bash$/,/^```$/p;/^-----$/p'  | \
-sed -e 's/^-----$/\
-p  ""\
-p  "################################################################################################### Press <ENTER> to continue"\
-wait\
-/' \
--e 's/^```bash$/\
-pe '"'"'/' \
--e 's/^```$/'"'"'/' \
--e '/^sleep/d' \
+sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p;/^-----$/p" | \
+sed \
+  -e 's/^-----$/\np  ""\np  "################################################################################################### Press <ENTER> to continue"\nwait\n/' \
+  -e 's/^```bash.*/\npe '"'"'/' \
+  -e 's/^```$/'"'"'/' \
+  -e '/^sleep/d' \
 > README.sh
 
+# shellcheck disable=SC1091
 source README.sh

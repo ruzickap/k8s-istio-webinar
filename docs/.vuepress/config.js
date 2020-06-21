@@ -1,9 +1,9 @@
 module.exports = {
-  title: "Istio webinar",
-  description: "Using Istio to control traffic flow without changing your application",
+  title: 'Istio webinar',
+  description: 'Using Istio to control traffic flow without changing your application',
   base: '/k8s-istio-webinar/',
   head: [
-    ['link', { rel: "icon", href: "/favicon.ico" }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
   themeConfig: {
     displayAllHeaders: true,
@@ -19,7 +19,7 @@ module.exports = {
         items: [
           { text: 'Istio', link: 'https://istio.io/' },
           { text: 'Istio docs', link: 'https://istio.io/docs/' },
-          { text: 'Istio webinar', link: 'https://github.com/ruzickap/k8s-istio-webinar' },
+          { text: 'Istio webinar', link: 'https://github.com/ruzickap/k8s-istio-webinar' }
         ]
       }
     ],
@@ -32,7 +32,7 @@ module.exports = {
       '/part-05/',
       '/part-06/',
       '/part-07/',
-      '/part-08/',
+      '/part-08/'
     ]
   },
   plugins: [

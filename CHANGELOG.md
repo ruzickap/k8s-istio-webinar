@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.1.0](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.0.2...v0.1.0) (2020-09-17)
+
+- Add actions/checkout with gh-page add use GITHUB_TOKEN with super-linter [`#56`](https://github.com/ruzickap/k8s-istio-webinar/pull/56)
+- Disable the linting process for AWS States Language (VALIDATE_STATES) [`#51`](https://github.com/ruzickap/k8s-istio-webinar/pull/51)
+- Replace markdown linter [`#42`](https://github.com/ruzickap/k8s-istio-webinar/pull/42)
+- Add super-linter + fix related issues [`#38`](https://github.com/ruzickap/k8s-istio-webinar/pull/38)
+- Fix GH variables to pass the tests [`#37`](https://github.com/ruzickap/k8s-istio-webinar/pull/37)
+- Move to GitHub's Dependabot (version 2) [`#30`](https://github.com/ruzickap/k8s-istio-webinar/pull/30)
+- Use shell-linter in latest version [`#25`](https://github.com/ruzickap/k8s-istio-webinar/pull/25)
+- Bump @vuepress/plugin-back-to-top from 1.4.1 to 1.5.0 [`#22`](https://github.com/ruzickap/k8s-istio-webinar/pull/22)
+- Bump @vuepress/plugin-medium-zoom from 1.4.1 to 1.5.0 [`#20`](https://github.com/ruzickap/k8s-istio-webinar/pull/20)
+- Bump vuepress from 1.4.1 to 1.5.0 [`#21`](https://github.com/ruzickap/k8s-istio-webinar/pull/21)
+- Ignore CHANGELOG.md when doing markdown checks [`#23`](https://github.com/ruzickap/k8s-istio-webinar/pull/23)
+- CHANGELOG file update [`#19`](https://github.com/ruzickap/k8s-istio-webinar/pull/19)
+
 ## [v0.0.2](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.0.1...v0.0.2) (2020-05-11)
 
 - Improve formatting of json files [`3fcb21d`](https://github.com/ruzickap/k8s-istio-webinar/commit/3fcb21d2e1aa4aa0a562d96bdc7a135c6f59988e)

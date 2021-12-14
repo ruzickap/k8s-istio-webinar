@@ -50,3 +50,4 @@ jobs:
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_STATES: false
           FILTER_REGEX_EXCLUDE: CHANGELOG.md
+          VALIDATE_NATURAL_LANGUAGE: false

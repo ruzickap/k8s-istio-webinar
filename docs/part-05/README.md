@@ -89,7 +89,7 @@ no matter how many times you refresh.
 [https://istio.io/docs/tasks/traffic-management/request-routing/#route-based-on-user-identity](https://istio.io/docs/tasks/traffic-management/request-routing/#route-based-on-user-identity)
 
 All traffic from a user named `jason` will be routed to the service `reviews:v2`
-by forwarding HTTP requests with custom end-user header to the appropriate
+by forwarding HTTP requests with custom end user header to the appropriate
 reviews service.
 
 Enable user-based routing:

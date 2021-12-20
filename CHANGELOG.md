@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.1.1](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.1.0...v0.1.1) (2021-12-20)
+
+- Improve GH Action files [`#86`](https://github.com/ruzickap/k8s-istio-webinar/pull/86)
+- Fix linter issues [`#85`](https://github.com/ruzickap/k8s-istio-webinar/pull/85)
+- Upgrade GH Actions versions [`#84`](https://github.com/ruzickap/k8s-istio-webinar/pull/84)
+- npm update [`#83`](https://github.com/ruzickap/k8s-istio-webinar/pull/83)
+- Disable jscpd [`#79`](https://github.com/ruzickap/k8s-istio-webinar/pull/79)
+- Upgrade action-my-broken-link-checker [`#71`](https://github.com/ruzickap/k8s-istio-webinar/pull/71)
+- Ignore CHANGELOG.md from being checked by super-linter [`#67`](https://github.com/ruzickap/k8s-istio-webinar/pull/67)
+- Fix My Broken Link Checker parameter [`#60`](https://github.com/ruzickap/k8s-istio-webinar/pull/60)
+- Add missing Vuepress plugins to config.js [`#59`](https://github.com/ruzickap/k8s-istio-webinar/pull/59)
+- Update package-lock.json [`#58`](https://github.com/ruzickap/k8s-istio-webinar/pull/58)
+
 ## [v0.1.0](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.0.2...v0.1.0) (2020-09-17)
 
 - Add actions/checkout with gh-page add use GITHUB_TOKEN with super-linter [`#56`](https://github.com/ruzickap/k8s-istio-webinar/pull/56)
@@ -13,7 +26,6 @@
 - Bump @vuepress/plugin-medium-zoom from 1.4.1 to 1.5.0 [`#20`](https://github.com/ruzickap/k8s-istio-webinar/pull/20)
 - Bump vuepress from 1.4.1 to 1.5.0 [`#21`](https://github.com/ruzickap/k8s-istio-webinar/pull/21)
 - Ignore CHANGELOG.md when doing markdown checks [`#23`](https://github.com/ruzickap/k8s-istio-webinar/pull/23)
-- CHANGELOG file update [`#19`](https://github.com/ruzickap/k8s-istio-webinar/pull/19)
 
 ## [v0.0.2](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.0.1...v0.0.2) (2020-05-11)
 

@@ -1,6 +1,6 @@
 # Istio webinar
 
-[![Build Status](https://github.com/ruzickap/k8s-istio-webinar/workflows/vuepress-build/badge.svg)](https://github.com/ruzickap/k8s-istio-webinar)
+[![Build Status](https://github.com/ruzickap/k8s-istio-webinar/workflows/vuepress-build-check-deploy/badge.svg)](https://github.com/ruzickap/k8s-istio-webinar)
 
 [Istio](https://istio.io/) is an open platform to connect, secure, control
 and observe microservices, also known as a service mesh, on cloud platforms

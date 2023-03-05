@@ -65,4 +65,4 @@ and observe what exactly is going on with your services.
 
   * [Istio Workshop by Ray Tsang](https://github.com/retroryan/istio-workshop)
 
-  * [Amazon EKS Workshop - Service Mesh with Istio](https://eksworkshop.com/servicemesh_with_istio/)
+  * [Amazon EKS Workshop - Service Mesh with Istio](https://archive.eksworkshop.com/advanced/310_servicemesh_with_istio/)

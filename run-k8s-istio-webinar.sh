@@ -49,22 +49,21 @@ clear
 # eksctl utils write-kubeconfig --kubeconfig kubeconfig.conf --name=${USER}-k8s-istio-webinar
 # echo -e "\n${LETSENCRYPT_ENVIRONMENT} | ${MY_DOMAIN} | ${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID} | ${EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY} |\n`kubectl --kubeconfig=./kubeconfig.conf cluster-info`"
 
-
 # ./run-k8s-istio-webinar.sh
 
 if [ -z "${EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID+x}" ] || [ -z "${EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY+x}" ]; then
-  echo "One of the mandatory variables 'EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID' or 'EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY' is not set !!";
+  echo "One of the mandatory variables 'EKS_CERT_MANAGER_ROUTE53_AWS_ACCESS_KEY_ID' or 'EKS_CERT_MANAGER_ROUTE53_AWS_SECRET_ACCESS_KEY' is not set !!"
   exit 1
 fi
 
-sed '/^## Prepare the local working environment/,/^Check if the new EKS cluster is available:/d' docs/part-{01..08}/README.md | \
-sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p;/^-----$/p" | \
-sed \
-  -e 's/^-----$/\np  ""\np  "################################################################################################### Press <ENTER> to continue"\nwait\n/' \
-  -e 's/^```bash.*/\npe '"'"'/' \
-  -e 's/^```$/'"'"'/' \
-  -e '/^sleep/d' \
-> README.sh
+sed '/^## Prepare the local working environment/,/^Check if the new EKS cluster is available:/d' docs/part-{01..08}/README.md |
+  sed -n "/^\`\`\`bash.*/,/^\`\`\`$/p;/^-----$/p" |
+  sed \
+    -e 's/^-----$/\np  ""\np  "################################################################################################### Press <ENTER> to continue"\nwait\n/' \
+    -e 's/^```bash.*/\npe '"'"'/' \
+    -e 's/^```$/'"'"'/' \
+    -e '/^sleep/d' \
+    > README.sh
 
 # shellcheck disable=SC1091
 source README.sh

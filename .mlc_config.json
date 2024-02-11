@@ -1,7 +1,10 @@
 {
   "ignorePatterns": [
     {
-      "pattern": "(https|http)://.*mylabs.dev"
+      "pattern": "(http|https)://.*mylabs.dev"
+    },
+    {
+      "pattern": "(http|https)://localhost"
     }
   ]
 }

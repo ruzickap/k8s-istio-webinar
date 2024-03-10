@@ -58,5 +58,5 @@ sed '/^## Configure AWS/,/^Create policy allowing the cert-manager to change Rou
     -e '/^sleep/d' \
     > README.sh
 
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091,SC1094
 source README.sh

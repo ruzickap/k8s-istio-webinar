@@ -65,5 +65,5 @@ sed '/^## Prepare the local working environment/,/^Check if the new EKS cluster 
     -e '/^sleep/d' \
     > README.sh
 
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091,SC1094
 source README.sh

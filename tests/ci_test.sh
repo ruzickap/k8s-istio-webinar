@@ -33,7 +33,7 @@ export MY_DOMAIN="mylabs.dev"
 
 # Commands
 sed -n "/^\`\`\`bash$/,/^\`\`\`$/p" docs/part-{02..08}/README.md | sed "/^\`\`\`*/d" > README.sh
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091,SC1094
 source ./README.sh
 
 # Istio + app cleanup

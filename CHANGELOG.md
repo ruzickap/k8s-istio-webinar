@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.1.1...v0.2.0) (2024-03-24)
+
+
+### Features
+
+* **gh:** add default GitHub repo files ([#147](https://github.com/ruzickap/k8s-istio-webinar/issues/147)) ([5367d21](https://github.com/ruzickap/k8s-istio-webinar/commit/5367d210cb5b79dfd50b710ce36382e352145dc1))
+* **gh:** add default GitHub repo files ([#150](https://github.com/ruzickap/k8s-istio-webinar/issues/150)) ([d837995](https://github.com/ruzickap/k8s-istio-webinar/commit/d837995469a46e0bb5cafc96bc327d3f7d380388))
+* **gh:** add default GitHub repo files ([#151](https://github.com/ruzickap/k8s-istio-webinar/issues/151)) ([69a6f45](https://github.com/ruzickap/k8s-istio-webinar/commit/69a6f4524f197b81c928aaa77c3c51f8882bf803))
+* **gh:** add default GitHub repo files ([#160](https://github.com/ruzickap/k8s-istio-webinar/issues/160)) ([82914ef](https://github.com/ruzickap/k8s-istio-webinar/commit/82914efba0b01d01a7fdd40df6fa3c60b64ba8cb))
+* **gha:** unify GHA - renovate, megalinter, markdown, and others ([#145](https://github.com/ruzickap/k8s-istio-webinar/issues/145)) ([45babbd](https://github.com/ruzickap/k8s-istio-webinar/commit/45babbd3b255cafb4ea75c16610477fdca914b0b))
+
+
+### Bug Fixes
+
+* **gha:** fix shellcheck by adding SC1094 to ignore list ([#156](https://github.com/ruzickap/k8s-istio-webinar/issues/156)) ([c0dd38e](https://github.com/ruzickap/k8s-istio-webinar/commit/c0dd38e9343a37441db7a482173cb8c97b4d2f4d))
+
 ## [v0.1.1](https://github.com/ruzickap/k8s-istio-webinar/compare/v0.1.0...v0.1.1) (2021-12-20)
 
 - Improve GH Action files [`#86`](https://github.com/ruzickap/k8s-istio-webinar/pull/86)

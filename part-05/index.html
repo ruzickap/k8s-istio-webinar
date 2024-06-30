@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Istio - Configuring Request Routing | Istio webinar</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/k8s-istio-webinar/favicon.ico">
+    <meta name="description" content="Using Istio to control traffic flow without changing your application">
+    
+    <link rel="preload" href="/k8s-istio-webinar/assets/css/0.styles.76cdea71.css" as="style"><link rel="preload" href="/k8s-istio-webinar/assets/js/app.e120865a.js" as="script"><link rel="preload" href="/k8s-istio-webinar/assets/js/2.7b7d8c54.js" as="script"><link rel="preload" href="/k8s-istio-webinar/assets/js/1.6e3d5e20.js" as="script"><link rel="preload" href="/k8s-istio-webinar/assets/js/22.9e744e4a.js" as="script"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/10.f92218f8.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/11.3da6bd86.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/12.1edd47ff.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/13.34418c16.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/14.e14a720e.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/15.46f6f98b.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/16.d9227f7e.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/17.0b9f48b5.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/18.ba76edc6.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/19.37c72c39.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/20.3c6764a2.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/21.6a41ea33.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/23.1386b505.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/24.735b4ee9.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/25.f4095df3.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/26.55d3f65c.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/27.18c0270c.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/28.a265b921.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/29.d970a03a.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/3.33543ee3.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/30.fda55fdb.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/4.b54801ee.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/5.203cbebb.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/6.d8cb0354.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/7.f1bebbb5.js"><link rel="prefetch" href="/k8s-istio-webinar/assets/js/vendors~docsearch.a43fb3db.js">
+    <link rel="stylesheet" href="/k8s-istio-webinar/assets/css/0.styles.76cdea71.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/k8s-istio-webinar/" class="home-link router-link-active"><img src="/k8s-istio-webinar/istio.svg" alt="Istio webinar" class="logo"> <span class="site-name can-hide">Istio webinar</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/k8s-istio-webinar/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Istio links" class="dropdown-title"><span class="title">Istio links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Istio links" class="mobile-dropdown-title"><span class="title">Istio links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://istio.io/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://istio.io/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio docs
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/ruzickap/k8s-istio-webinar" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio webinar
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-istio-webinar" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/k8s-istio-webinar/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Istio links" class="dropdown-title"><span class="title">Istio links</span> <span class="arrow down"></span></button> <button type="button" aria-label="Istio links" class="mobile-dropdown-title"><span class="title">Istio links</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://istio.io/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://istio.io/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio docs
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li><li class="dropdown-item"><!----> <a href="https://github.com/ruzickap/k8s-istio-webinar" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Istio webinar
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <a href="https://github.com/ruzickap/k8s-istio-webinar" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/k8s-istio-webinar/" aria-current="page" class="sidebar-link">Istio webinar</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/#requirements" class="sidebar-link">Requirements</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/#objectives" class="sidebar-link">Objectives</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/#webinar" class="sidebar-link">Webinar</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/#links" class="sidebar-link">Links</a></li></ul></li><li><a href="/k8s-istio-webinar/part-01/" class="sidebar-link">Create EKS cluster</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-01/#prepare-the-local-working-environment" class="sidebar-link">Prepare the local working environment</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-01/#configure-aws" class="sidebar-link">Configure AWS</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-01/#create-amazon-eks" class="sidebar-link">Create Amazon EKS</a></li></ul></li><li><a href="/k8s-istio-webinar/part-02/" class="sidebar-link">Install Helm</a></li><li><a href="/k8s-istio-webinar/part-03/" class="sidebar-link">Istio - Installation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-03/#install-istio" class="sidebar-link">Install Istio</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-03/#create-dns-records" class="sidebar-link">Create DNS records</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-03/#create-ssl-certificate-using-let-s-encrypt" class="sidebar-link">Create SSL certificate using Let's Encrypt</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-03/#check-and-configure-istio" class="sidebar-link">Check and configure Istio</a></li></ul></li><li><a href="/k8s-istio-webinar/part-04/" class="sidebar-link">Istio - Bookinfo Application</a></li><li><a href="/k8s-istio-webinar/part-05/" aria-current="page" class="active sidebar-link">Istio - Configuring Request Routing</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-05/#apply-a-virtual-service" class="sidebar-link">Apply a virtual service</a></li><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-05/#route-based-on-user-identity" class="sidebar-link">Route based on user identity</a></li></ul></li><li><a href="/k8s-istio-webinar/part-06/" class="sidebar-link">Istio - Injecting an HTTP delay fault</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/k8s-istio-webinar/part-06/#injecting-an-http-abort-fault" class="sidebar-link">Injecting an HTTP abort fault</a></li></ul></li><li><a href="/k8s-istio-webinar/part-07/" class="sidebar-link">Istio - Weight-based routing</a></li><li><a href="/k8s-istio-webinar/part-08/" class="sidebar-link">Istio - Cleanup</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="istio-configuring-request-routing"><a href="#istio-configuring-request-routing" class="header-anchor">#</a> Istio - Configuring Request Routing</h1> <p><a href="https://istio.io/docs/tasks/traffic-management/request-routing/" target="_blank" rel="noopener noreferrer">https://istio.io/docs/tasks/traffic-management/request-routing/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>This part shows you how to route requests dynamically to multiple versions
+of a microservice.</p> <h2 id="apply-a-virtual-service"><a href="#apply-a-virtual-service" class="header-anchor">#</a> Apply a virtual service</h2> <p>Apply and display the virtual services which will route all traffic to <code>v1</code> of each
+microservice:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">-f</span> samples/bookinfo/networking/virtual-service-all-v1.yaml
+kubectl get virtualservices <span class="token parameter variable">-o</span> yaml
+</code></pre></div><p>Output:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> details
+  <span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> details
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> details
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> productpage
+  <span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">gateways</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> bookinfo<span class="token punctuation">-</span>gateway
+  <span class="token punctuation">-</span> mesh
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> productpage
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> productpage
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> ratings
+  <span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ratings
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> ratings
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+<span class="token punctuation">---</span>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> reviews
+  <span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> reviews
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+</code></pre></div><p>Open the Bookinfo site in your browser <a href="http://mylabs.dev/productpage" target="_blank" rel="noopener noreferrer">http://mylabs.dev/productpage<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+and notice that the reviews part of the page displays with <strong>no rating stars</strong>,
+no matter how many times you refresh.</p> <p><img src="/k8s-istio-webinar/assets/img/bookinfo_v1.b5fab228.jpg" alt="Bookinfo v1" title="Bookinfo v1"></p> <h2 id="route-based-on-user-identity"><a href="#route-based-on-user-identity" class="header-anchor">#</a> Route based on user identity</h2> <p><a href="https://istio.io/docs/tasks/traffic-management/request-routing/#route-based-on-user-identity" target="_blank" rel="noopener noreferrer">https://istio.io/docs/tasks/traffic-management/request-routing/#route-based-on-user-identity<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>All traffic from a user named <code>jason</code> will be routed to the service <code>reviews:v2</code>
+by forwarding HTTP requests with custom end user header to the appropriate
+reviews service.</p> <p>Enable user-based routing:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl apply <span class="token parameter variable">-f</span> samples/bookinfo/networking/virtual-service-reviews-test-v2.yaml
+kubectl get virtualservice reviews <span class="token parameter variable">-o</span> yaml
+</code></pre></div><p>Output:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> networking.istio.io/v1alpha3
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> VirtualService
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> reviews
+  <span class="token punctuation">...</span>
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> reviews
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+        <span class="token key atrule">end-user</span><span class="token punctuation">:</span>
+          <span class="token key atrule">exact</span><span class="token punctuation">:</span> jason
+    <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v2
+  <span class="token punctuation">-</span> <span class="token key atrule">route</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">destination</span><span class="token punctuation">:</span>
+        <span class="token key atrule">host</span><span class="token punctuation">:</span> reviews
+        <span class="token key atrule">subset</span><span class="token punctuation">:</span> v1
+</code></pre></div><p>On the <code>/productpage</code> of the Bookinfo app, log in as user <code>jason</code> and refresh
+the browser. The <strong>black star ratings</strong> appear next to each review.</p> <p><img src="/k8s-istio-webinar/assets/img/bookinfo_v2.b2277875.jpg" alt="Bookinfo v2" title="Bookinfo v2"></p> <p>Log in as another user (pick any name you wish) and refresh the browser. Now
+the <strong>stars are gone</strong>. This is because traffic is routed to <code>reviews:v1</code>
+for all users except <code>jason</code> user.</p> <p>You can do the same with <code>user-agent header</code> or <code>URI</code> for example:</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code>  <span class="token punctuation">...</span>
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">headers</span><span class="token punctuation">:</span>
+        <span class="token key atrule">user-agent</span><span class="token punctuation">:</span>
+          <span class="token key atrule">regex</span><span class="token punctuation">:</span> <span class="token string">'.*Firefox.*'</span>
+  <span class="token punctuation">...</span>
+  <span class="token key atrule">http</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">match</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">uri</span><span class="token punctuation">:</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> /api/v1
+  <span class="token punctuation">...</span>
+</code></pre></div><p><img src="/k8s-istio-webinar/assets/img/istio.a24267ed.svg" alt="Istio" title="Istio"></p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/ruzickap/k8s-istio-webinar/edit/master/docs/part-05/README.md" target="_blank" rel="noopener noreferrer">Edit this page</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">6/30/2024, 2:40:33 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/k8s-istio-webinar/part-04/" class="prev">
+        Istio - Bookinfo Application
+      </a></span> <span class="next"><a href="/k8s-istio-webinar/part-06/">
+        Istio - Injecting an HTTP delay fault
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/k8s-istio-webinar/assets/js/app.e120865a.js" defer></script><script src="/k8s-istio-webinar/assets/js/2.7b7d8c54.js" defer></script><script src="/k8s-istio-webinar/assets/js/1.6e3d5e20.js" defer></script><script src="/k8s-istio-webinar/assets/js/22.9e744e4a.js" defer></script>
+  </body>
+</html>
